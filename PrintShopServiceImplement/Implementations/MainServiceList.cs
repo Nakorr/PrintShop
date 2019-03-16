@@ -19,53 +19,28 @@ namespace PrintShopServiceImplement.Implementations
         }
         public List<IndentViewModel> GetList()
         {
-            List<IndentViewModel> result = new List<IndentViewModel>();
-            for (int i = 0; i < source.Indents.Count; ++i)
+            List<IndentViewModel> result = source.Indents
+            .Select(rec => new IndentViewModel
             {
-                string clientFIO = string.Empty;
-                for (int j = 0; j < source.Customers.Count; ++j)
-                {
-                    if (source.Customers[j].Id == source.Indents[i].CustomerId)
-                    {
-                        clientFIO = source.Customers[j].CustomerFIO;
-                        break;
-                    }
-                }
-                string productName = string.Empty;
-                for (int j = 0; j < source.Prints.Count; ++j)
-                {
-                    if (source.Prints[j].Id == source.Indents[i].PrintId)
-                    {
-                        productName = source.Prints[j].PrintName;
-                        break;
-                    }
-                }
-                result.Add(new IndentViewModel
-                {
-                    Id = source.Indents[i].Id,
-                    CustomerId = source.Indents[i].CustomerId,
-                    CustomerFIO = clientFIO,
-                    PrintId = source.Indents[i].PrintId,
-                    PrintName = productName,
-                    Count = source.Indents[i].Count,
-                    Sum = source.Indents[i].Sum,
-                    DateCreate = source.Indents[i].DateCreate.ToLongDateString(),
-                    DateImplement = source.Indents[i].DateImplement?.ToLongDateString(),
-                    Status = source.Indents[i].Status.ToString()
-                });
-            }
+                Id = rec.Id,
+                CustomerId = rec.CustomerId,
+                PrintId = rec.PrintId,
+                DateCreate = rec.DateCreate.ToLongDateString(),
+                DateImplement = rec.DateImplement?.ToLongDateString(),
+                Status = rec.Status.ToString(),
+                Count = rec.Count,
+                Sum = rec.Sum,
+                CustomerFIO = source.Customers.FirstOrDefault(recC => recC.Id ==
+     rec.CustomerId)?.CustomerFIO,
+                PrintName = source.Prints.FirstOrDefault(recP => recP.Id ==
+    rec.PrintId)?.PrintName,
+            })
+            .ToList();
             return result;
         }
         public void CreateIndent(IndentBindingModel model)
         {
-            int maxId = 0;
-            for (int i = 0; i < source.Indents.Count; ++i)
-            {
-                if (source.Indents[i].Id > maxId)
-                {
-                    maxId = source.Customers[i].Id;
-                }
-            }
+            int maxId = source.Indents.Count > 0 ? source.Indents.Max(rec => rec.Id) : 0;
             source.Indents.Add(new Indent
             {
                 Id = maxId + 1,
@@ -77,69 +52,107 @@ namespace PrintShopServiceImplement.Implementations
                 Status = IndentStatus.Принят
             });
         }
-        public void TakeOrderInWork(IndentBindingModel model)
+        public void TakeIndentInWork(IndentBindingModel model)
         {
-            int index = -1;
-            for (int i = 0; i < source.Indents.Count; ++i)
-            {
-                if (source.Indents[i].Id == model.Id)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            if (index == -1)
+            Indent element = source.Indents.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element == null)
             {
                 throw new Exception("Элемент не найден");
             }
-            if (source.Indents[index].Status != IndentStatus.Принят)
+            if (element.Status != IndentStatus.Принят)
             {
                 throw new Exception("Заказ не в статусе \"Принят\"");
             }
-            source.Indents[index].DateImplement = DateTime.Now;
-            source.Indents[index].Status = IndentStatus.Выполняется;
-        }
-        public void FinishOrder(IndentBindingModel model)
-        {
-            int index = -1;
-            for (int i = 0; i < source.Indents.Count; ++i)
+            // смотрим по количеству компонентов на складах
+            var PrintIngredients = source.PrintIngredient.Where(rec => rec.PrintId
+           == element.PrintId);
+            
+ foreach (var PrintIngredient in PrintIngredients)
             {
-                if (source.Indents[i].Id == model.Id)
+                int countOnStocks = source.StockIngredient
+                .Where(rec => rec.IngredientId ==
+               PrintIngredient.IngredientId)
+               .Sum(rec => rec.Count);
+                if (countOnStocks < PrintIngredient.Count * element.Count)
                 {
-                    index = i;
-                    break;
+                    var IngredientName = source.Ingredients.FirstOrDefault(rec => rec.Id ==
+                   PrintIngredient.IngredientId);
+                    throw new Exception("Не достаточно ингредиента " +
+                   IngredientName?.IngredientName + " требуется " + (PrintIngredient.Count * element.Count) +
+                   ", в наличии " + countOnStocks);
                 }
             }
-            if (index == -1)
+            // списываем
+            foreach (var PrintIngredient in PrintIngredients)
+            {
+                int countOnStocks = PrintIngredient.Count * element.Count;
+                var StockIngredients = source.StockIngredient.Where(rec => rec.IngredientId
+               == PrintIngredient.IngredientId);
+                foreach (var stockIngredient in StockIngredients)
+                {
+                    // компонентов на одном слкаде может не хватать
+                    if (stockIngredient.Count >= countOnStocks)
+                    {
+                        stockIngredient.Count -= countOnStocks;
+                        break;
+                    }
+                    else
+                    {
+                        countOnStocks -= stockIngredient.Count;
+                        stockIngredient.Count = 0;
+                    }
+                }
+            }
+            element.DateImplement = DateTime.Now;
+            element.Status = IndentStatus.Выполняется;
+        }
+        public void FinishIndent(IndentBindingModel model)
+        {
+            Indent element = source.Indents.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element == null)
             {
                 throw new Exception("Элемент не найден");
+                
             }
-            if (source.Indents[index].Status != IndentStatus.Выполняется)
+            if (element.Status != IndentStatus.Выполняется)
             {
                 throw new Exception("Заказ не в статусе \"Выполняется\"");
             }
-            source.Indents[index].Status = IndentStatus.Готов;
+            element.Status = IndentStatus.Готов;
         }
-        public void PayOrder(IndentBindingModel model)
+        public void PayIndent(IndentBindingModel model)
         {
-            int index = -1;
-            for (int i = 0; i < source.Indents.Count; ++i)
-            {
-                if (source.Indents[i].Id == model.Id)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            if (index == -1)
+            Indent element = source.Indents.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element == null)
             {
                 throw new Exception("Элемент не найден");
             }
-            if (source.Indents[index].Status != IndentStatus.Готов)
+            if (element.Status != IndentStatus.Готов)
             {
                 throw new Exception("Заказ не в статусе \"Готов\"");
             }
-            source.Indents[index].Status = IndentStatus.Оплачен;
+            element.Status = IndentStatus.Оплачен;
+        }
+        public void PutIngredientOnStock(StockIngredientBindingModel model)
+        {
+            StockIngredient element = source.StockIngredient.FirstOrDefault(rec =>
+           rec.StockId == model.StockId && rec.IngredientId == model.IngredientId);
+            if (element != null)
+            {
+                element.Count += model.Count;
+            }
+            else
+            {
+                int maxId = source.StockIngredient.Count > 0 ?
+               source.StockIngredient.Max(rec => rec.Id) : 0;
+                source.StockIngredient.Add(new StockIngredient
+                {
+                    Id = ++maxId,
+                    StockId = model.StockId,
+                    IngredientId = model.IngredientId,
+                    Count = model.Count
+                });
+            }
         }
     }
 }

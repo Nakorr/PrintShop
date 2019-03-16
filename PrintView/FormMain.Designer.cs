@@ -33,6 +33,8 @@
             this.клиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ингредиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.видыПиццToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.складыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.пополнитьСкладToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.buttonCreateIndent = new System.Windows.Forms.Button();
             this.buttonTakeIndentInWork = new System.Windows.Forms.Button();
@@ -47,7 +49,8 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.инфоToolStripMenuItem});
+            this.инфоToolStripMenuItem,
+            this.пополнитьСкладToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
@@ -60,7 +63,8 @@
             this.инфоToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.клиентыToolStripMenuItem,
             this.ингредиентыToolStripMenuItem,
-            this.видыПиццToolStripMenuItem});
+            this.видыПиццToolStripMenuItem,
+            this.складыToolStripMenuItem});
             this.инфоToolStripMenuItem.Name = "инфоToolStripMenuItem";
             this.инфоToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.инфоToolStripMenuItem.Text = "Инфо";
@@ -68,29 +72,43 @@
             // клиентыToolStripMenuItem
             // 
             this.клиентыToolStripMenuItem.Name = "клиентыToolStripMenuItem";
-            this.клиентыToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.клиентыToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.клиентыToolStripMenuItem.Text = "Клиенты";
             this.клиентыToolStripMenuItem.Click += new System.EventHandler(this.клиентыToolStripMenuItem_Click);
             // 
             // ингредиентыToolStripMenuItem
             // 
             this.ингредиентыToolStripMenuItem.Name = "ингредиентыToolStripMenuItem";
-            this.ингредиентыToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.ингредиентыToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ингредиентыToolStripMenuItem.Text = "Ингредиенты";
             this.ингредиентыToolStripMenuItem.Click += new System.EventHandler(this.компонентыToolStripMenuItem_Click);
             // 
             // видыПиццToolStripMenuItem
             // 
             this.видыПиццToolStripMenuItem.Name = "видыПиццToolStripMenuItem";
-            this.видыПиццToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.видыПиццToolStripMenuItem.Text = "Виды пицц";
+            this.видыПиццToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.видыПиццToolStripMenuItem.Text = "Книги";
             this.видыПиццToolStripMenuItem.Click += new System.EventHandler(this.изделияToolStripMenuItem_Click);
+            // 
+            // складыToolStripMenuItem
+            // 
+            this.складыToolStripMenuItem.Name = "складыToolStripMenuItem";
+            this.складыToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.складыToolStripMenuItem.Text = "Склады";
+            this.складыToolStripMenuItem.Click += new System.EventHandler(this.складыToolStripMenuItem_Click);
+            // 
+            // пополнитьСкладToolStripMenuItem
+            // 
+            this.пополнитьСкладToolStripMenuItem.Name = "пополнитьСкладToolStripMenuItem";
+            this.пополнитьСкладToolStripMenuItem.Size = new System.Drawing.Size(115, 20);
+            this.пополнитьСкладToolStripMenuItem.Text = "Пополнить склад";
+            this.пополнитьСкладToolStripMenuItem.Click += new System.EventHandler(this.пополнитьСкладToolStripMenuItem_Click);
             // 
             // dataGridView
             // 
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Location = new System.Drawing.Point(9, 25);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowTemplate.Height = 24;
             this.dataGridView.Size = new System.Drawing.Size(772, 353);
@@ -99,7 +117,7 @@
             // buttonCreateIndent
             // 
             this.buttonCreateIndent.Location = new System.Drawing.Point(846, 63);
-            this.buttonCreateIndent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonCreateIndent.Margin = new System.Windows.Forms.Padding(2);
             this.buttonCreateIndent.Name = "buttonCreateIndent";
             this.buttonCreateIndent.Size = new System.Drawing.Size(158, 30);
             this.buttonCreateIndent.TabIndex = 2;
@@ -110,7 +128,7 @@
             // buttonTakeIndentInWork
             // 
             this.buttonTakeIndentInWork.Location = new System.Drawing.Point(846, 98);
-            this.buttonTakeIndentInWork.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonTakeIndentInWork.Margin = new System.Windows.Forms.Padding(2);
             this.buttonTakeIndentInWork.Name = "buttonTakeIndentInWork";
             this.buttonTakeIndentInWork.Size = new System.Drawing.Size(158, 30);
             this.buttonTakeIndentInWork.TabIndex = 3;
@@ -121,7 +139,7 @@
             // buttonIndentReady
             // 
             this.buttonIndentReady.Location = new System.Drawing.Point(846, 132);
-            this.buttonIndentReady.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonIndentReady.Margin = new System.Windows.Forms.Padding(2);
             this.buttonIndentReady.Name = "buttonIndentReady";
             this.buttonIndentReady.Size = new System.Drawing.Size(158, 30);
             this.buttonIndentReady.TabIndex = 4;
@@ -132,18 +150,18 @@
             // buttonPayOrder
             // 
             this.buttonPayOrder.Location = new System.Drawing.Point(846, 167);
-            this.buttonPayOrder.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonPayOrder.Margin = new System.Windows.Forms.Padding(2);
             this.buttonPayOrder.Name = "buttonPayOrder";
             this.buttonPayOrder.Size = new System.Drawing.Size(158, 30);
             this.buttonPayOrder.TabIndex = 5;
             this.buttonPayOrder.Text = "Заказ оплачен";
             this.buttonPayOrder.UseVisualStyleBackColor = true;
-            this.buttonPayOrder.Click += new System.EventHandler(this.buttonPayOrder_Click);
+            this.buttonPayOrder.Click += new System.EventHandler(this.buttonPayIndent_Click);
             // 
             // buttonRef
             // 
             this.buttonRef.Location = new System.Drawing.Point(846, 202);
-            this.buttonRef.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonRef.Margin = new System.Windows.Forms.Padding(2);
             this.buttonRef.Name = "buttonRef";
             this.buttonRef.Size = new System.Drawing.Size(158, 30);
             this.buttonRef.TabIndex = 6;
@@ -164,7 +182,7 @@
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormMain";
             this.Text = "Типография";
             this.menuStrip1.ResumeLayout(false);
@@ -188,6 +206,8 @@
         private System.Windows.Forms.Button buttonIndentReady;
         private System.Windows.Forms.Button buttonPayOrder;
         private System.Windows.Forms.Button buttonRef;
+        private System.Windows.Forms.ToolStripMenuItem складыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem пополнитьСкладToolStripMenuItem;
     }
 }
 
