@@ -68,29 +68,29 @@
             // клиентыToolStripMenuItem
             // 
             this.клиентыToolStripMenuItem.Name = "клиентыToolStripMenuItem";
-            this.клиентыToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.клиентыToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.клиентыToolStripMenuItem.Text = "Клиенты";
             this.клиентыToolStripMenuItem.Click += new System.EventHandler(this.клиентыToolStripMenuItem_Click);
             // 
             // ингредиентыToolStripMenuItem
             // 
             this.ингредиентыToolStripMenuItem.Name = "ингредиентыToolStripMenuItem";
-            this.ингредиентыToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.ингредиентыToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ингредиентыToolStripMenuItem.Text = "Ингредиенты";
             this.ингредиентыToolStripMenuItem.Click += new System.EventHandler(this.компонентыToolStripMenuItem_Click);
             // 
             // видыПиццToolStripMenuItem
             // 
             this.видыПиццToolStripMenuItem.Name = "видыПиццToolStripMenuItem";
-            this.видыПиццToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.видыПиццToolStripMenuItem.Text = "Виды пицц";
+            this.видыПиццToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.видыПиццToolStripMenuItem.Text = "Книги";
             this.видыПиццToolStripMenuItem.Click += new System.EventHandler(this.изделияToolStripMenuItem_Click);
             // 
             // dataGridView
             // 
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Location = new System.Drawing.Point(9, 25);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowTemplate.Height = 24;
             this.dataGridView.Size = new System.Drawing.Size(772, 353);
@@ -99,7 +99,7 @@
             // buttonCreateIndent
             // 
             this.buttonCreateIndent.Location = new System.Drawing.Point(846, 63);
-            this.buttonCreateIndent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonCreateIndent.Margin = new System.Windows.Forms.Padding(2);
             this.buttonCreateIndent.Name = "buttonCreateIndent";
             this.buttonCreateIndent.Size = new System.Drawing.Size(158, 30);
             this.buttonCreateIndent.TabIndex = 2;
@@ -110,7 +110,7 @@
             // buttonTakeIndentInWork
             // 
             this.buttonTakeIndentInWork.Location = new System.Drawing.Point(846, 98);
-            this.buttonTakeIndentInWork.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonTakeIndentInWork.Margin = new System.Windows.Forms.Padding(2);
             this.buttonTakeIndentInWork.Name = "buttonTakeIndentInWork";
             this.buttonTakeIndentInWork.Size = new System.Drawing.Size(158, 30);
             this.buttonTakeIndentInWork.TabIndex = 3;
@@ -121,7 +121,7 @@
             // buttonIndentReady
             // 
             this.buttonIndentReady.Location = new System.Drawing.Point(846, 132);
-            this.buttonIndentReady.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonIndentReady.Margin = new System.Windows.Forms.Padding(2);
             this.buttonIndentReady.Name = "buttonIndentReady";
             this.buttonIndentReady.Size = new System.Drawing.Size(158, 30);
             this.buttonIndentReady.TabIndex = 4;
@@ -132,7 +132,7 @@
             // buttonPayOrder
             // 
             this.buttonPayOrder.Location = new System.Drawing.Point(846, 167);
-            this.buttonPayOrder.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonPayOrder.Margin = new System.Windows.Forms.Padding(2);
             this.buttonPayOrder.Name = "buttonPayOrder";
             this.buttonPayOrder.Size = new System.Drawing.Size(158, 30);
             this.buttonPayOrder.TabIndex = 5;
@@ -143,7 +143,7 @@
             // buttonRef
             // 
             this.buttonRef.Location = new System.Drawing.Point(846, 202);
-            this.buttonRef.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonRef.Margin = new System.Windows.Forms.Padding(2);
             this.buttonRef.Name = "buttonRef";
             this.buttonRef.Size = new System.Drawing.Size(158, 30);
             this.buttonRef.TabIndex = 6;
@@ -164,7 +164,7 @@
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormMain";
             this.Text = "Типография";
             this.menuStrip1.ResumeLayout(false);

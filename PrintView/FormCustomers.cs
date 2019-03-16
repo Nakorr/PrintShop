@@ -57,7 +57,7 @@ namespace PrintView
                 LoadData();
             }
         }
-        private void buttonUpd_Click(object sender, EventArgs e)
+        private void buttonRef_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
@@ -91,7 +91,7 @@ namespace PrintView
             }
         }
 
-        private void buttonRef_Click(object sender, EventArgs e)
+        private void buttonUpd_Click(object sender, EventArgs e)
         {
             LoadData();
         }
