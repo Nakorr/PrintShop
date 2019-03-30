@@ -1,7 +1,10 @@
 ﻿using PrintShopServiceDAL.Interfaces;
 using PrintShopServiceImplement.Implementations;
+using PrintShopServiceImplementDataBase;
+using PrintShopServiceImplementDataBase.Implementation;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -28,17 +31,19 @@ namespace PrintView
         public static IUnityContainer BuildUnityContainer()
         {
             var currentContainer = new UnityContainer();
-            currentContainer.RegisterType<ICustomerService, CustomerServiceList>(new
+            currentContainer.RegisterType<DbContext, PrintShopDbContext>(new
            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IIngredientService, IngredientServiceList>(new
+            currentContainer.RegisterType<ICustomerService, CustomerServiceDB>(new
            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IPrintService, PrintServiceList>(new
+            currentContainer.RegisterType<IIngredientService, IngredientServiceDB>(new
            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IMainService, MainServiceList>(new
+            currentContainer.RegisterType<IPrintService, PrintServiceDB>(new
            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IStockService, StockServiceList>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IMainService, MainServiceDB>(new
+           HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IStockService, StockServiceDB>(new
+           HierarchicalLifetimeManager());
             return currentContainer;
         }
     }
 }
-

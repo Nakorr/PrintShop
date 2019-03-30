@@ -8,5 +8,6 @@ namespace PrintShopModel
     {
         public int Id { get; set; }
         public string CustomerFIO { get; set; }
+        public virtual List<Indent> Indents { get; set; }
     }
 }
