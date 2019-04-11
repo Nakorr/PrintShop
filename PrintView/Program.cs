@@ -1,7 +1,7 @@
 ﻿using PrintShopServiceDAL.Interfaces;
 using PrintShopServiceImplement.Implementations;
 using PrintShopServiceImplementDataBase;
-using PrintShopServiceImplementDataBase.Implementation;
+using PrintShopServiceImplementDataBase.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
