@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Unity;
+using Microsoft.Reporting.WinForms;
 
 namespace PrintView
 {
@@ -136,6 +137,42 @@ namespace PrintView
         private void пополнитьСкладToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormPutOnStock>();
+            form.ShowDialog();
+        }
+        private void прайсПринтовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                Filter = "doc|*.doc|docx|*.docx"
+            };
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    ReportService.SavePrintPrice(new ReportBindingModel
+                    {
+                        FileName = sfd.FileName
+                    });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void загруженностьСкладовToolStripMenuItem_Click(object sender, EventArgs
+       e)
+        {
+            var form = Container.Resolve<FormStocksLoad>();
+            
+        form.ShowDialog();
+        }
+        private void заказыКлиентовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormCustomerIndents>();
             form.ShowDialog();
         }
     }
