@@ -19,105 +19,65 @@ namespace PrintShopServiceImplement.Implementations
         }
         public List<PrintViewModel> GetList()
         {
-            List<PrintViewModel> result = new List<PrintViewModel>();
-            for (int i = 0; i < source.Prints.Count; ++i)
-            {
-                // требуется дополнительно получить список компонентов для изделия и ихколичество
-                List<PrintIngredientViewModel> PrintIngredients = new
-    List<PrintIngredientViewModel>();
-                for (int j = 0; j < source.PrintIngredient.Count; ++j)
-                {
-                    if (source.PrintIngredient[j].PrintId == source.Prints[i].Id)
-                    {
-                        string ingredientName = string.Empty;
-                        for (int k = 0; k < source.Ingredients.Count; ++k)
-                        {
-                            if (source.PrintIngredient[j].PrintId ==
-                           source.Ingredients[k].Id)
-                            {
-                                ingredientName = source.Ingredients[k].IngredientName;
-                                break;
-                            }
-                        }
-                        PrintIngredients.Add(new PrintIngredientViewModel
-                        {
-                            Id = source.PrintIngredient[j].Id,
-                            PrintId = source.PrintIngredient[j].PrintId,
-                            IngredientId = source.PrintIngredient[j].IngredientId,
-                            IngredientName = ingredientName,
-                            Count = source.PrintIngredient[j].Count
-                        });
-                    }
-                }
-                result.Add(new PrintViewModel
-                {
-                    Id = source.Prints[i].Id,
-                    PrintName = source.Prints[i].PrintName,
-                    Price = source.Prints[i].Price,
-                    PrintIngredients = PrintIngredients
-                });
-            }
-            return result;
+            List<PrintViewModel> result = source.Prints
+    .Select(rec => new PrintViewModel
+    {
+        Id = rec.Id,
+        PrintName = rec.PrintName,
+        Price = rec.Price,
+        PrintIngredients = source.PrintIngredient
+    .Where(recPC => recPC.PrintId == rec.Id)
+   .Select(recPC => new PrintIngredientViewModel
+   {
+       Id = recPC.Id,
+       PrintId = recPC.PrintId,
+       IngredientId = recPC.IngredientId,
+       IngredientName = source.Ingredients.FirstOrDefault(recC =>
+    recC.Id == recPC.IngredientId)?.IngredientName,
+       Count = recPC.Count
+   })
+   .ToList()
+    })
+    .ToList();
+            
+ return result;
         }
         public PrintViewModel GetElement(int id)
         {
-            for (int i = 0; i < source.Prints.Count; ++i)
+            Print element = source.Prints.FirstOrDefault(rec => rec.Id == id);
+            if (element != null)
             {
-                // требуется дополнительно получить список компонентов для изделия и их количество
-                List<PrintIngredientViewModel> PrintIngredients = new
-    List<PrintIngredientViewModel>();
-                for (int j = 0; j < source.PrintIngredient.Count; ++j)
+                return new PrintViewModel
                 {
-                    if (source.PrintIngredient[j].PrintId == source.Prints[i].Id)
-                    {
-                        string ingredientName = string.Empty;
-                        for (int k = 0; k < source.Ingredients.Count; ++k)
-                        {
-                            if (source.PrintIngredient[j].IngredientId ==
-                           source.Ingredients[k].Id)
-                            {
-                                ingredientName = source.Ingredients[k].IngredientName;
-                                break;
-                            }
-                        }
-                        PrintIngredients.Add(new PrintIngredientViewModel
-                        {
-                            Id = source.PrintIngredient[j].Id,
-                            PrintId = source.PrintIngredient[j].PrintId,
-                            IngredientId = source.PrintIngredient[j].IngredientId,
-                            IngredientName = ingredientName,
-                            Count = source.PrintIngredient[j].Count
-                        });
-                    }
-                }
-                if (source.Prints[i].Id == id)
+                    Id = element.Id,
+                    PrintName = element.PrintName,
+                    Price = element.Price,
+                    PrintIngredients = source.PrintIngredient
+                .Where(recPC => recPC.PrintId == element.Id)
+                .Select(recPC => new PrintIngredientViewModel
                 {
-                    return new PrintViewModel
-                    {
-                        Id = source.Prints[i].Id,
-                        PrintName = source.Prints[i].PrintName,
-                        Price = source.Prints[i].Price,
-                        PrintIngredients = PrintIngredients
-                    };
-                }
+                    Id = recPC.Id,
+                    PrintId = recPC.PrintId,
+                    IngredientId = recPC.IngredientId,
+                    IngredientName = source.Ingredients.FirstOrDefault(recC =>
+     recC.Id == recPC.IngredientId)?.IngredientName,
+                    Count = recPC.Count
+                })
+               .ToList()
+                };
             }
             throw new Exception("Элемент не найден");
         }
-
         public void AddElement(PrintBindingModel model)
         {
-            int maxId = 0;
-            for (int i = 0; i < source.Prints.Count; ++i)
+            Print element = source.Prints.FirstOrDefault(rec => rec.PrintName ==
+           model.PrintName);
+            if (element != null)
             {
-                if (source.Prints[i].Id > maxId)
-                {
-                    maxId = source.Prints[i].Id;
-                }
-                if (source.Prints[i].PrintName == model.PrintName)
-                {
-                    throw new Exception("Уже есть изделие с таким названием");
-                }
+                throw new Exception("Уже есть книга с таким названием");
             }
+            int maxId = source.Prints.Count > 0 ? source.Prints.Max(rec => rec.Id) :
+           0;
             source.Prints.Add(new Print
             {
                 Id = maxId + 1,
@@ -125,146 +85,101 @@ namespace PrintShopServiceImplement.Implementations
                 Price = model.Price
             });
             // компоненты для изделия
-            int maxPCId = 0;
-            for (int i = 0; i < source.PrintIngredient.Count; ++i)
-            {
-                if (source.PrintIngredient[i].Id > maxPCId)
-                {
-                    maxPCId = source.PrintIngredient[i].Id;
-                }
-            }
+            int maxPCId = source.PrintIngredient.Count > 0 ?
+           source.PrintIngredient.Max(rec => rec.Id) : 0;
             // убираем дубли по компонентам
-            for (int i = 0; i < model.PrintIngredient.Count; ++i)
-            {
-                for (int j = 1; j < model.PrintIngredient.Count; ++j)
-                {
-                    if (model.PrintIngredient[i].IngredientId ==
-                    model.PrintIngredient[j].IngredientId)
-                    {
-                        model.PrintIngredient[i].Count +=
-                        model.PrintIngredient[j].Count;
-                        model.PrintIngredient.RemoveAt(j--);
-                    }
-                }
-            }
+            var groupIngredients = model.PrintIngredient
+            .GroupBy(rec => rec.IngredientId)
+           .Select(rec => new
+           {
+               IngredientId = rec.Key,
+               Count = rec.Sum(r => r.Count)
+           });
             // добавляем компоненты
-            for (int i = 0; i < model.PrintIngredient.Count; ++i)
+            foreach (var groupIngredient in groupIngredients)
             {
                 source.PrintIngredient.Add(new PrintIngredient
                 {
                     Id = ++maxPCId,
                     PrintId = maxId + 1,
-                    IngredientId = model.PrintIngredient[i].IngredientId,
-                    Count = model.PrintIngredient[i].Count
+                    
+                IngredientId = groupIngredient.IngredientId,
+                    Count = groupIngredient.Count
                 });
             }
         }
         public void UpdElement(PrintBindingModel model)
         {
-            int index = -1;
-            for (int i = 0; i < source.Prints.Count; ++i)
+            Print element = source.Prints.FirstOrDefault(rec => rec.PrintName ==
+           model.PrintName && rec.Id != model.Id);
+            if (element != null)
             {
-                if (source.Prints[i].Id == model.Id)
-                {
-                    index = i;
-                }
-                if (source.Prints[i].PrintName == model.PrintName &&
-                source.Prints[i].Id != model.Id)
-                {
-                    throw new Exception("Уже есть изделие с таким названием");
-                }
+                throw new Exception("Уже есть книга с таким названием");
             }
-            if (index == -1)
+            element = source.Prints.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element == null)
             {
                 throw new Exception("Элемент не найден");
             }
-            source.Prints[index].PrintName = model.PrintName;
-            source.Prints[index].Price = model.Price;
-            int maxPCId = 0;
-            for (int i = 0; i < source.PrintIngredient.Count; ++i)
-            {
-                if (source.PrintIngredient[i].Id > maxPCId)
-                {
-                    maxPCId = source.PrintIngredient[i].Id;
-                }
-            }
+            element.PrintName = model.PrintName;
+            element.Price = model.Price;
+            int maxPCId = source.PrintIngredient.Count > 0 ?
+           source.PrintIngredient.Max(rec => rec.Id) : 0;
             // обновляем существуюущие компоненты
-            for (int i = 0; i < source.PrintIngredient.Count; ++i)
+            var compIds = model.PrintIngredient.Select(rec =>
+           rec.IngredientId).Distinct();
+            var updateIngredients = source.PrintIngredient.Where(rec => rec.PrintId ==
+           model.Id && compIds.Contains(rec.IngredientId));
+            foreach (var updateIngredient in updateIngredients)
             {
-                if (source.PrintIngredient[i].PrintId == model.Id)
-                {
-                    bool flag = true;
-                    for (int j = 0; j < model.PrintIngredient.Count; ++j)
-                    {
-                        // если встретили, то изменяем количество
-                        if (source.PrintIngredient[i].Id ==
-                       model.PrintIngredient[j].Id)
-                        {
-                            source.PrintIngredient[i].Count =
-                           model.PrintIngredient[j].Count;
-                            flag = false;
-                            break;
-                        }
-                    }
-                    // если не встретили, то удаляем
-                    if (flag)
-                    {
-                        source.PrintIngredient.RemoveAt(i--);
-                    }
-                }
+                updateIngredient.Count = model.PrintIngredient.FirstOrDefault(rec =>
+               rec.Id == updateIngredient.Id).Count;
             }
+            source.PrintIngredient.RemoveAll(rec => rec.PrintId == model.Id &&
+           !compIds.Contains(rec.IngredientId));
             // новые записи
-            for (int i = 0; i < model.PrintIngredient.Count; ++i)
+            var groupIngredients = model.PrintIngredient
+            .Where(rec => rec.Id == 0)
+           .GroupBy(rec => rec.IngredientId)
+           .Select(rec => new
+           {
+               IngredientId = rec.Key,
+               Count = rec.Sum(r => r.Count)
+           });
+            foreach (var groupIngredient in groupIngredients)
             {
-                if (model.PrintIngredient[i].Id == 0)
+                PrintIngredient elementPC = source.PrintIngredient.FirstOrDefault(rec
+               => rec.PrintId == model.Id && rec.IngredientId == groupIngredient.IngredientId);
+                if (elementPC != null)
                 {
-                    // ищем дубли
-                    for (int j = 0; j < source.PrintIngredient.Count; ++j)
+                    elementPC.Count += groupIngredient.Count;
+                }
+                else
+                {
+                    source.PrintIngredient.Add(new PrintIngredient
                     {
-                        if (source.PrintIngredient[j].PrintId == model.Id &&
-                        source.PrintIngredient[j].IngredientId ==
-                       model.PrintIngredient[i].IngredientId)
-                        {
-                            source.PrintIngredient[j].Count +=
-                           model.PrintIngredient[i].Count;
-                            model.PrintIngredient[i].Id =
-                           source.PrintIngredient[j].Id;
-                            break;
-                        }
-                    }
-                    // если не нашли дубли, то новая запись
-                    if (model.PrintIngredient[i].Id == 0)
-                    {
-                        source.PrintIngredient.Add(new PrintIngredient
-                        {
-                            Id = ++maxPCId,
-                            PrintId = model.Id,
-                            IngredientId = model.PrintIngredient[i].IngredientId,
-                            Count = model.PrintIngredient[i].Count
-                        });
-                    }
+                        Id = ++maxPCId,
+                        PrintId = model.Id,
+                        IngredientId = groupIngredient.IngredientId,
+                        Count = groupIngredient.Count
+                    });
                 }
             }
+            
         }
         public void DelElement(int id)
         {
-            // удаяем записи по компонентам при удалении изделия
-            for (int i = 0; i < source.PrintIngredient.Count; ++i)
+            Print element = source.Prints.FirstOrDefault(rec => rec.Id == id);
+            if (element != null)
             {
-                if (source.PrintIngredient[i].PrintId == id)
-                {
-                    source.PrintIngredient.RemoveAt(i--);
-                }
+                // удаяем записи по компонентам при удалении изделия
+                source.PrintIngredient.RemoveAll(rec => rec.PrintId == id);
+                source.Prints.Remove(element);
             }
-            for (int i = 0; i < source.Prints.Count; ++i)
+            else
             {
-                if (source.Prints[i].Id == id)
-                {
-                    source.Prints.RemoveAt(i);
-                    return;
-                }
+                throw new Exception("Элемент не найден");
             }
-            throw new Exception("Элемент не найден");
         }
     }
 }

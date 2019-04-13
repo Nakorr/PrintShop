@@ -33,6 +33,8 @@
             this.клиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ингредиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.видыПиццToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.складыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.пополнитьСкладToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.buttonCreateIndent = new System.Windows.Forms.Button();
             this.buttonTakeIndentInWork = new System.Windows.Forms.Button();
@@ -47,7 +49,8 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.инфоToolStripMenuItem});
+            this.инфоToolStripMenuItem,
+            this.пополнитьСкладToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
@@ -60,7 +63,8 @@
             this.инфоToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.клиентыToolStripMenuItem,
             this.ингредиентыToolStripMenuItem,
-            this.видыПиццToolStripMenuItem});
+            this.видыПиццToolStripMenuItem,
+            this.складыToolStripMenuItem});
             this.инфоToolStripMenuItem.Name = "инфоToolStripMenuItem";
             this.инфоToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.инфоToolStripMenuItem.Text = "Инфо";
@@ -85,6 +89,20 @@
             this.видыПиццToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.видыПиццToolStripMenuItem.Text = "Книги";
             this.видыПиццToolStripMenuItem.Click += new System.EventHandler(this.изделияToolStripMenuItem_Click);
+            // 
+            // складыToolStripMenuItem
+            // 
+            this.складыToolStripMenuItem.Name = "складыToolStripMenuItem";
+            this.складыToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.складыToolStripMenuItem.Text = "Склады";
+            this.складыToolStripMenuItem.Click += new System.EventHandler(this.складыToolStripMenuItem_Click);
+            // 
+            // пополнитьСкладToolStripMenuItem
+            // 
+            this.пополнитьСкладToolStripMenuItem.Name = "пополнитьСкладToolStripMenuItem";
+            this.пополнитьСкладToolStripMenuItem.Size = new System.Drawing.Size(115, 20);
+            this.пополнитьСкладToolStripMenuItem.Text = "Пополнить склад";
+            this.пополнитьСкладToolStripMenuItem.Click += new System.EventHandler(this.пополнитьСкладToolStripMenuItem_Click);
             // 
             // dataGridView
             // 
@@ -138,7 +156,7 @@
             this.buttonPayOrder.TabIndex = 5;
             this.buttonPayOrder.Text = "Заказ оплачен";
             this.buttonPayOrder.UseVisualStyleBackColor = true;
-            this.buttonPayOrder.Click += new System.EventHandler(this.buttonPayOrder_Click);
+            this.buttonPayOrder.Click += new System.EventHandler(this.buttonPayIndent_Click);
             // 
             // buttonRef
             // 
@@ -188,6 +206,8 @@
         private System.Windows.Forms.Button buttonIndentReady;
         private System.Windows.Forms.Button buttonPayOrder;
         private System.Windows.Forms.Button buttonRef;
+        private System.Windows.Forms.ToolStripMenuItem складыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem пополнитьСкладToolStripMenuItem;
     }
 }
 

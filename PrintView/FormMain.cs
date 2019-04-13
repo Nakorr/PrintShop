@@ -78,7 +78,7 @@ namespace PrintView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    service.TakeOrderInWork(new IndentBindingModel { Id = id });
+                    service.TakeIndentInWork(new IndentBindingModel { Id = id });
                     LoadData();
                 }
                 catch (Exception ex)
@@ -95,7 +95,7 @@ namespace PrintView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    service.FinishOrder(new IndentBindingModel { Id = id });
+                    service.FinishIndent(new IndentBindingModel { Id = id });
                     LoadData();
                 }
                 catch (Exception ex)
@@ -105,14 +105,14 @@ namespace PrintView
                 }
             }
         }
-        private void buttonPayOrder_Click(object sender, EventArgs e)
+        private void buttonPayIndent_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    service.PayOrder(new IndentBindingModel { Id = id });
+                    service.PayIndent(new IndentBindingModel { Id = id });
                     LoadData();
                 }
                 catch (Exception ex)
@@ -126,6 +126,17 @@ namespace PrintView
         private void buttonRef_Click(object sender, EventArgs e)
         {
             LoadData();
+        }
+        private void складыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormStocks>();
+            form.ShowDialog();
+        }
+
+        private void пополнитьСкладToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormPutOnStock>();
+            form.ShowDialog();
         }
     }
 }

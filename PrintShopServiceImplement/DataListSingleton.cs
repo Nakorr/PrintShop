@@ -15,6 +15,8 @@ namespace PrintShopServiceImplement
         public List<Indent> Indents { get; set; }
         public List<Print> Prints { get; set; }
         public List<PrintIngredient> PrintIngredient { get; set; }
+        public List<Stock> Stock { get; set; }
+        public List<StockIngredient> StockIngredient { get; set; }
         private DataListSingleton()
         {
             Customers = new List<Customer>();
@@ -22,6 +24,8 @@ namespace PrintShopServiceImplement
             Indents = new List<Indent>();
             Prints = new List<Print>();
             PrintIngredient = new List<PrintIngredient>();
+            Stock = new List<Stock>();
+            StockIngredient = new List<StockIngredient>();
             
         }
         public static DataListSingleton GetInstance()

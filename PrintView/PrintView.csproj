@@ -114,6 +114,24 @@
     <Compile Include="FormPrints.Designer.cs">
       <DependentUpon>FormPrints.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormPutOnStock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPutOnStock.Designer.cs">
+      <DependentUpon>FormPutOnStock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormStock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormStock.Designer.cs">
+      <DependentUpon>FormStock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormStocks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormStocks.Designer.cs">
+      <DependentUpon>FormStocks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormCreateIndent.resx">
@@ -142,6 +160,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrints.resx">
       <DependentUpon>FormPrints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPutOnStock.resx">
+      <DependentUpon>FormPutOnStock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormStock.resx">
+      <DependentUpon>FormStock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormStocks.resx">
+      <DependentUpon>FormStocks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
