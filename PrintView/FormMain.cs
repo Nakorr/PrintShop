@@ -1,6 +1,7 @@
 ﻿using PrintShopServiceDAL.BindingModel;
 using PrintShopServiceDAL.Interfaces;
 using PrintShopServiceDAL.ViewModel;
+using PrintShopServiceDAL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Unity;
 using Microsoft.Reporting.WinForms;
+using PrintShopServiceImplementDataBase.Implementations;
 
 namespace PrintView
 {
@@ -20,11 +22,14 @@ namespace PrintView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         private readonly IMainService service;
+        private IReportService reportService;
 
-        public FormMain(IMainService service)
+
+        public FormMain(IMainService service, IReportService reportService)
         {
             InitializeComponent();
             this.service = service;
+            this.reportService = reportService;
         }
 
         private void LoadData()
@@ -149,7 +154,7 @@ namespace PrintView
             {
                 try
                 {
-                    ReportService.SavePrintPrice(new ReportBindingModel
+                    reportService.SavePrintPrice(new ReportBindingModel
                     {
                         FileName = sfd.FileName
                     });

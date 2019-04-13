@@ -63,8 +63,9 @@ namespace PrintView
             if (dataGridView.SelectedRows.Count == 1)
             {
                 var form = Container.Resolve<FormStock>();
-                form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
-                if (form.ShowDialog() == DialogResult.OK)
+                int n = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                form.Id = n;
+                if (form.ShowDialog() != DialogResult.OK)
                 {
                     LoadData();
                 }

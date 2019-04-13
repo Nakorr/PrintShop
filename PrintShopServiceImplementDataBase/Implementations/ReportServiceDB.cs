@@ -329,7 +329,7 @@ namespace PrintShopServiceImplementDataBase.Implementations
             {
                 HorizontalAlignment = Element.ALIGN_CENTER
             });
-            table.AddCell(new PdfPCell(new Phrase("Изделие", fontForCellBold))
+            table.AddCell(new PdfPCell(new Phrase("Книга", fontForCellBold))
             {
                 HorizontalAlignment = Element.ALIGN_CENTER
             });

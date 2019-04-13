@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PrintShopServiceDAL.BindingModel;
 using PrintShopServiceDAL.Interfaces;
-using Unity;using Microsoft.Reporting.WinForms;
+using Unity;
+using Microsoft.Reporting.WinForms;
+
 
 namespace PrintView
 {
@@ -22,7 +24,8 @@ namespace PrintView
         public FormCustomerIndents(IReportService service)
         {
             InitializeComponent();
-            this.service = service;
+            this.service = service;
+
         }
         private void buttonMake_Click(object sender, EventArgs e)
         {
