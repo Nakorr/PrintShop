@@ -1,6 +1,7 @@
 ﻿using PrintShopServiceDAL.BindingModel;
 using PrintShopServiceDAL.Interfaces;
 using PrintShopServiceDAL.ViewModel;
+using PrintShopServiceDAL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Unity;
+using Microsoft.Reporting.WinForms;
+using PrintShopServiceImplementDataBase.Implementations;
 
 namespace PrintView
 {
@@ -19,11 +22,14 @@ namespace PrintView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         private readonly IMainService service;
+        private IReportService reportService;
 
-        public FormMain(IMainService service)
+
+        public FormMain(IMainService service, IReportService reportService)
         {
             InitializeComponent();
             this.service = service;
+            this.reportService = reportService;
         }
 
         private void LoadData()
@@ -136,6 +142,42 @@ namespace PrintView
         private void пополнитьСкладToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormPutOnStock>();
+            form.ShowDialog();
+        }
+        private void прайсПринтовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                Filter = "doc|*.doc|docx|*.docx"
+            };
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    reportService.SavePrintPrice(new ReportBindingModel
+                    {
+                        FileName = sfd.FileName
+                    });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void загруженностьСкладовToolStripMenuItem_Click(object sender, EventArgs
+       e)
+        {
+            var form = Container.Resolve<FormStocksLoad>();
+            
+        form.ShowDialog();
+        }
+        private void заказыКлиентовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormCustomerIndents>();
             form.ShowDialog();
         }
     }
