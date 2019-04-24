@@ -238,7 +238,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ReportView.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\PrintShopServiceDAL.ViewModel.CustomerIndentsModel.datasource" />
     <None Include="Properties\DataSources\PrintShopServiceDAL.ViewModel.PrintViewModel.datasource" />
