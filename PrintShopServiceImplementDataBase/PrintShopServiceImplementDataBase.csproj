@@ -68,12 +68,6 @@
       <DependentUpon>201903300424193_SecondMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="PrintShopDbContext.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Implementations\CustomerServiceDB.cs" />
     <Compile Include="Implementations\IngredientServiceDB.cs" />
     <Compile Include="Implementations\MainServiceDB.cs" />
@@ -84,7 +78,6 @@
       <DependentUpon>201903300328344_FirstMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Migrations\201903300328344_FirstMigration.resx">
       <DependentUpon>201903300328344_FirstMigration.cs</DependentUpon>
