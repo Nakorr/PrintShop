@@ -79,7 +79,7 @@
     </ProjectReference>
     <ProjectReference Include="..\PrintShopServiceDAL\PrintShopServiceDAL.csproj">
       <Project>{E29AD7AA-E804-4F28-820F-5F727D9757DE}</Project>
-      <Name>PizzeriaServiceDAL</Name>
+      <Name>PrintShopServiceDAL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

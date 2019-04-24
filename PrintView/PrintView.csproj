@@ -262,11 +262,7 @@
     </ProjectReference>
     <ProjectReference Include="..\PrintShopServiceDAL\PrintShopServiceDAL.csproj">
       <Project>{E29AD7AA-E804-4F28-820F-5F727D9757DE}</Project>
-      <Name>PizzeriaServiceDAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PrintShopServiceImplementDataBase\PrintShopServiceImplementDataBase.csproj">
-      <Project>{e2c13992-722e-46e1-bace-f6fa41fa497d}</Project>
-      <Name>PrintShopServiceImplementDataBase</Name>
+      <Name>PrintShopServiceDAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\PrintShopServiceImplement\PrintShopServiceImplement.csproj">
       <Project>{0C6723EA-1F18-4473-BE8B-081E4DD9383A}</Project>

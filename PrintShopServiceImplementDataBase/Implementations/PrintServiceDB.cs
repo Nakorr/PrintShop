@@ -10,7 +10,7 @@ using PrintShopServiceDAL.ViewModel;
 
 namespace PrintShopServiceImplementDataBase.Implementations
 {
-   public class PrintServiceDB : IPrintService
+    public class PrintServiceDB : IPrintService
     {
         private PrintShopDbContext context;
         public PrintServiceDB(PrintShopDbContext context)
@@ -46,11 +46,11 @@ namespace PrintShopServiceImplementDataBase.Implementations
             if (element != null)
             {
                 return new PrintViewModel
-            {
+                {
                     Id = element.Id,
-PrintName = element.PrintName,
-Price = element.Price,
-PrintIngredients = context.PrintIngredients
+                    PrintName = element.PrintName,
+                    Price = element.Price,
+                    PrintIngredients = context.PrintIngredients
  .Where(recPC => recPC.PrintId == element.Id)
  .Select(recPC => new PrintIngredientViewModel
  {
@@ -61,7 +61,7 @@ PrintIngredients = context.PrintIngredients
      Count = recPC.Count
  })
  .ToList()
- };
+                };
             }
             throw new Exception("Элемент не найден");
         }
@@ -109,7 +109,7 @@ PrintIngredients = context.PrintIngredients
                 {
                     transaction.Rollback();
                     throw;
-                    
+
                 }
             }
         }
@@ -171,8 +171,8 @@ PrintIngredients = context.PrintIngredients
                             context.PrintIngredients.Add(new PrintIngredient
                             {
                                 PrintId = model.Id,
-                                
-                            IngredientId = groupIngredient.IngredientId,
+
+                                IngredientId = groupIngredient.IngredientId,
                                 Count = groupIngredient.Count
                             });
                             context.SaveChanges();

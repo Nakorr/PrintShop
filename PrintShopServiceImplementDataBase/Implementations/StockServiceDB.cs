@@ -58,7 +58,7 @@ namespace PrintShopServiceImplementDataBase.Implementations
             Stock element = context.Stocks.FirstOrDefault(rec => rec.StockName == model.StockName && rec.Id != model.Id);
             if (element != null)
             {
-                throw new Exception("Уже есть склад с таким названием");
+                throw new Exception("Уже есть клиент с таким ФИО");
             }
             element = context.Stocks.FirstOrDefault(rec => rec.Id == model.Id);
             if (element == null)

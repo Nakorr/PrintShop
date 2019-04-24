@@ -8,11 +8,11 @@ using PrintShopServiceDAL.BindingModel;
 using PrintShopServiceDAL.Interfaces;
 using PrintShopServiceDAL.ViewModel;
 using System.Data.Entity;
-using System.Data.Entity.SqlServer;
+using System.Data.Entity.SqlServer;
 
 namespace PrintShopServiceImplementDataBase.Implementations
 {
-   public class MainServiceDB : IMainService
+    public class MainServiceDB : IMainService
     {
         private PrintShopDbContext context;
         public MainServiceDB(PrintShopDbContext context)
@@ -60,8 +60,8 @@ namespace PrintShopServiceImplementDataBase.Implementations
         }
         public void TakeIndentInWork(IndentBindingModel model)
         {
-            
-        using (var transaction = context.Database.BeginTransaction())
+
+            using (var transaction = context.Database.BeginTransaction())
             {
                 try
                 {
@@ -104,7 +104,7 @@ namespace PrintShopServiceImplementDataBase.Implementations
                         {
                             throw new Exception("Не достаточно компонента " +
                            PrintIngredient.Ingredient.IngredientName + " требуется " + PrintIngredient.Count + ", не хватает " + countOnStocks);
-                         }
+                        }
                     }
                     element.DateImplement = DateTime.Now;
                     element.Status = IndentStatus.Выполняется;
@@ -122,8 +122,8 @@ namespace PrintShopServiceImplementDataBase.Implementations
         {
             Indent element = context.Indents.FirstOrDefault(rec => rec.Id == model.Id);
             if (element == null)
-                
-        {
+
+            {
                 throw new Exception("Элемент не найден");
             }
             if (element.Status != IndentStatus.Выполняется)

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.Entity;using PrintShopModel;
+using System.Data.Entity;
+using PrintShopModel;
 
 namespace PrintShopServiceImplementDataBase
 {
-   public class PrintShopDbContext : DbContext
+    public class PrintShopDbContext : DbContext
     {
         public PrintShopDbContext() : base("AbstractDatabase")
         {

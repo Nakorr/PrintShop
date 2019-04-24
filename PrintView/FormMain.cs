@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Unity;
 using Microsoft.Reporting.WinForms;
-using PrintShopServiceImplementDataBase.Implementations;
 
 namespace PrintView
 {

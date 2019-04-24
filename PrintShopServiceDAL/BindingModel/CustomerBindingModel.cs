@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace PrintShopServiceDAL.BindingModel
 {
+
     public class CustomerBindingModel
     {
         public int Id { get; set; }

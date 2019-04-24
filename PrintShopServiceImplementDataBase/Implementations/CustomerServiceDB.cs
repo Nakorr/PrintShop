@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using PrintShopModel;
 using PrintShopServiceDAL.BindingModel;
 using PrintShopServiceDAL.Interfaces;
-using PrintShopServiceDAL.ViewModel;
+using PrintShopServiceDAL.ViewModel;
 
 namespace PrintShopServiceImplementDataBase.Implementations
 {
-   public class CustomerServiceDB : ICustomerService
+    public class CustomerServiceDB : ICustomerService
     {
         private PrintShopDbContext context;
         public CustomerServiceDB(PrintShopDbContext context)
@@ -38,7 +38,7 @@ namespace PrintShopServiceImplementDataBase.Implementations
                     Id = element.Id,
                     CustomerFIO = element.CustomerFIO
                 };
-                
+
             }
             throw new Exception("Элемент не найден");
         }

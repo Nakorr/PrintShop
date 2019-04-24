@@ -17,7 +17,7 @@ using PrintShopServiceDAL.ViewModel;
 
 namespace PrintShopServiceImplementDataBase.Implementations
 {
-   public class ReportServiceDB : IReportService
+    public class ReportServiceDB : IReportService
     {
         private PrintShopDbContext context;
         public ReportServiceDB(PrintShopDbContext context)
@@ -57,9 +57,9 @@ namespace PrintShopServiceImplementDataBase.Implementations
                 //добавляем абзац в документ
                 range.InsertParagraphAfter();
                 var Prints = context.Prints.ToList();
-                
-            //создаем таблицу
- var paragraphTable = document.Paragraphs.Add(Type.Missing);
+
+                //создаем таблицу
+                var paragraphTable = document.Paragraphs.Add(Type.Missing);
                 var rangeTable = paragraphTable.Range;
                 var table = document.Tables.Add(rangeTable, Prints.Count, 2, ref
                missing, ref missing);
@@ -235,9 +235,9 @@ namespace PrintShopServiceImplementDataBase.Implementations
                         excelcells.Font.Bold = true;
                     }
                 }
-                
-            //сохраняем
- excel.Workbooks[1].Save();
+
+                //сохраняем
+                excel.Workbooks[1].Save();
             }
             catch (Exception)
             {
@@ -296,8 +296,8 @@ namespace PrintShopServiceImplementDataBase.Implementations
            iTextSharp.text.Paragraph(phraseTitle)
             {
                 Alignment = Element.ALIGN_CENTER,
-                
-            SpacingAfter = 12
+
+                SpacingAfter = 12
             };
             doc.Add(paragraph);
             var phrasePeriod = new Phrase("c " + model.DateFrom.Value.ToShortDateString()
@@ -329,7 +329,7 @@ namespace PrintShopServiceImplementDataBase.Implementations
             {
                 HorizontalAlignment = Element.ALIGN_CENTER
             });
-            table.AddCell(new PdfPCell(new Phrase("Книга", fontForCellBold))
+            table.AddCell(new PdfPCell(new Phrase("Изделие", fontForCellBold))
             {
                 HorizontalAlignment = Element.ALIGN_CENTER
             });
@@ -359,8 +359,8 @@ namespace PrintShopServiceImplementDataBase.Implementations
                 cell = new PdfPCell(new Phrase(list[i].Count.ToString(), fontForCells));
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 table.AddCell(cell);
-                
-            cell = new PdfPCell(new Phrase(list[i].Sum.ToString(), fontForCells));
+
+                cell = new PdfPCell(new Phrase(list[i].Sum.ToString(), fontForCells));
                 cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                 table.AddCell(cell);
                 cell = new PdfPCell(new Phrase(list[i].Status, fontForCells));
