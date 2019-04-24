@@ -7,29 +7,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
 using PrintShopServiceDAL.BindingModel;
 using PrintShopServiceDAL.Interfaces;
+using PrintShopServiceDAL.ViewModel;
+
 
 namespace PrintView
 {
     public partial class FormStocksLoad : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-        private readonly IReportService service;
 
-        public FormStocksLoad(IReportService service)
+        public FormStocksLoad()
         {
             InitializeComponent();
-            this.service = service;
         }
-
         private void FormStocksLoad_Load(object sender, EventArgs e)
         {
             try
             {
-                var dict = service.GetStocksLoad();
+                List<StocksLoadViewModel> dict = APICustomer.GetRequest<List<StocksLoadViewModel>>("api/Main/GetStocksLoad");
                 if (dict != null)
                 {
                     dataGridView.Rows.Clear();
@@ -38,11 +34,9 @@ namespace PrintView
                         dataGridView.Rows.Add(new object[] { elem.StockName, "", "" });
                         foreach (var listElem in elem.Ingredients)
                         {
-                            dataGridView.Rows.Add(new object[] { "", listElem.Item1,
-listElem.Item2 });
+                            dataGridView.Rows.Add(new object[] { "", listElem.Item1, listElem.Item2 });
                         }
-                        dataGridView.Rows.Add(new object[] { "Итого", "", elem.TotalCount
-});
+                        dataGridView.Rows.Add(new object[] { "Итого", "", elem.TotalCount });
                         dataGridView.Rows.Add(new object[] { });
                     }
                 }
@@ -63,7 +57,7 @@ listElem.Item2 });
             {
                 try
                 {
-                    service.SaveStocksLoad(new ReportBindingModel
+                    APICustomer.PostRequest<ReportBindingModel, bool>("api/Main/SaveStocksLoad", new ReportBindingModel
                     {
                         FileName = sfd.FileName
                     });
@@ -76,8 +70,6 @@ listElem.Item2 });
                    MessageBoxIcon.Error);
                 }
             }
-
         }
     }
 }
-

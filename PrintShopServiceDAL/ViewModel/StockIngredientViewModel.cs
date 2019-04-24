@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel;
+using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace PrintShopServiceDAL.ViewModel
 {
@@ -16,5 +17,6 @@ namespace PrintShopServiceDAL.ViewModel
         public string IngredientName { get; set; }
         [DisplayName("Количество")]
         public int Count { get; set; }
-    }
+    }
+
 }

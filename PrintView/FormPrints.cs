@@ -1,5 +1,6 @@
 ﻿using PrintShopServiceDAL.Interfaces;
 using PrintShopServiceDAL.ViewModel;
+using PrintShopServiceDAL.BindingModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,20 +10,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
 
 namespace PrintView
 {
     public partial class FormPrints : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-        private readonly IPrintService service;
 
-        public FormPrints(IPrintService service)
+        public FormPrints()
         {
             InitializeComponent();
-            this.service = service;
         }
 
         private void FormPrints_Load(object sender, EventArgs e)
@@ -34,7 +30,7 @@ namespace PrintView
         {
             try
             {
-                List<PrintViewModel> list = service.GetList();
+                List<PrintViewModel> list = APICustomer.GetRequest<List<PrintViewModel>>("api/Print/GetList");
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -51,7 +47,7 @@ namespace PrintView
         }
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormPrint>();
+            var form = new FormPrint();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 LoadData();
@@ -61,7 +57,7 @@ namespace PrintView
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                var form = Container.Resolve<FormPrint>();
+                var form = new FormPrint();
                 form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -79,7 +75,7 @@ namespace PrintView
                     int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        service.DelElement(id);
+                        APICustomer.PostRequest<PrintBindingModel, bool>("api/Print/DelElement", new PrintBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {

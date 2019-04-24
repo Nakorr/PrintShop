@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PrintShopServiceDAL.BindingModel;
 using PrintShopServiceDAL.Interfaces;
-using Unity;
+using PrintShopServiceDAL.ViewModel;
 using Microsoft.Reporting.WinForms;
 
 
@@ -17,16 +17,12 @@ namespace PrintView
 {
     public partial class FormCustomerIndents : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-        private readonly IReportService service;
 
-        public FormCustomerIndents(IReportService service)
+        public FormCustomerIndents()
         {
             InitializeComponent();
-            this.service = service;
-
         }
+
         private void buttonMake_Click(object sender, EventArgs e)
         {
             if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
@@ -43,13 +39,13 @@ namespace PrintView
                 " по " +
                dateTimePickerTo.Value.ToShortDateString());
                 reportViewer.LocalReport.SetParameters(parameter);
-                var dataSource = service.GetCustomerIndents(new ReportBindingModel
+                List<CustomerIndentsModel> response = APICustomer.PostRequest<ReportBindingModel,
+                List<CustomerIndentsModel>>("api/Report/GetCustomerIndents", new ReportBindingModel
                 {
                     DateFrom = dateTimePickerFrom.Value,
                     DateTo = dateTimePickerTo.Value
                 });
-                ReportDataSource source = new ReportDataSource("DataSetIndents",
-               dataSource);
+                ReportDataSource source = new ReportDataSource("DataSetIndent",response);
                 reportViewer.LocalReport.DataSources.Add(source);
                 reportViewer.RefreshReport();
             }
@@ -65,8 +61,7 @@ namespace PrintView
             {
                 MessageBox.Show("Дата начала должна быть меньше даты окончания",
                "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
-            return;
+                return;
             }
             SaveFileDialog sfd = new SaveFileDialog
             {
@@ -76,7 +71,7 @@ namespace PrintView
             {
                 try
                 {
-                    service.SaveCustomerIndents(new ReportBindingModel
+                    APICustomer.PostRequest<ReportBindingModel, bool>("api/Report/SaveCustomerOrders", new ReportBindingModel
                     {
                         FileName = sfd.FileName,
                         DateFrom = dateTimePickerFrom.Value,
@@ -92,7 +87,6 @@ namespace PrintView
                 }
             }
         }
-
         private void FormCustomerIndents_Load(object sender, EventArgs e)
         {
             this.reportViewer.RefreshReport();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace PrintShopServiceDAL.BindingModel
 {
@@ -12,5 +13,6 @@ namespace PrintShopServiceDAL.BindingModel
         public int StockId { get; set; }
         public int IngredientId { get; set; }
         public int Count { get; set; }
-    }
+    }
+
 }

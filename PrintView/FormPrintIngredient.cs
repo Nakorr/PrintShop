@@ -9,33 +9,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
 
 namespace PrintView
 {
     public partial class FormPrintIngredient : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
         public PrintIngredientViewModel Model
         {
             set { model = value; }
             get { return model; }
         }
-        private readonly IIngredientService service;
         private PrintIngredientViewModel model;
 
-        public FormPrintIngredient(IIngredientService service)
+        public FormPrintIngredient()
         {
             InitializeComponent();
-            this.service = service;
         }
 
         private void FormProductComponent_Load(object sender, EventArgs e)
         {
             try
             {
-                List<IngredientViewModel> list = service.GetList();
+                List<IngredientViewModel> list = APICustomer.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
                 if (list != null)
                 {
                     comboBoxIngredient.DisplayMember = "IngredientName";
