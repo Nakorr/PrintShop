@@ -1,7 +1,8 @@
 using System;
 using Unity;
 using Unity.Lifetime;
-using System.Data.Entity;using PrintShopServiceDAL.Interfaces;
+using System.Data.Entity;
+using PrintShopServiceDAL.Interfaces;
 using PrintShopServiceImplementDataBase;
 using PrintShopServiceImplementDataBase.Implementations;
 

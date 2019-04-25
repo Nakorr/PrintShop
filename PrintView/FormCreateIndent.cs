@@ -120,5 +120,6 @@ namespace PrintView
             DialogResult = DialogResult.Cancel;
             Close();
         }
+
     }
 }
