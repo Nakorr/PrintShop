@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintShopServiceImplementDa
 		{0C6723EA-1F18-4473-BE8B-081E4DD9383A} = {0C6723EA-1F18-4473-BE8B-081E4DD9383A}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintShopRestApi", "PrintShopRestApi\PrintShopRestApi.csproj", "{73CDECB4-D92B-437D-86E4-9A300205E24E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{E2C13992-722E-46E1-BACE-F6FA41FA497D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2C13992-722E-46E1-BACE-F6FA41FA497D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2C13992-722E-46E1-BACE-F6FA41FA497D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73CDECB4-D92B-437D-86E4-9A300205E24E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73CDECB4-D92B-437D-86E4-9A300205E24E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73CDECB4-D92B-437D-86E4-9A300205E24E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73CDECB4-D92B-437D-86E4-9A300205E24E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,32 +10,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
 
 namespace PrintView
 {
     public partial class FormCreateIndent : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-        private readonly ICustomerService serviceC;
-        private readonly IPrintService serviceP;
-        private readonly IMainService serviceM;
-
-        public FormCreateIndent(ICustomerService serviceC, IPrintService serviceP,
-IMainService serviceM)
+        public FormCreateIndent()
         {
             InitializeComponent();
-            this.serviceC = serviceC;
-            this.serviceP = serviceP;
-            this.serviceM = serviceM;
         }
 
         private void FormCreateIndent_Load(object sender, EventArgs e)
         {
             try
             {
-                List<CustomerViewModel> listC = serviceC.GetList();
+                List<CustomerViewModel> listC = APICustomer.GetRequest<List<CustomerViewModel>>("api/Customer/GetList");
                 if (listC != null)
                 {
                     comboBoxCustomer.DisplayMember = "CustomerFIO";
@@ -43,7 +32,7 @@ IMainService serviceM)
                     comboBoxCustomer.DataSource = listC;
                     comboBoxCustomer.SelectedItem = null;
                 }
-                List<PrintViewModel> listP = serviceP.GetList();
+                List<PrintViewModel> listP = APICustomer.GetRequest<List<PrintViewModel>>("api/Print/GetList");
                 if (listP != null)
                 {
                     comboBoxPrint.DisplayMember = "PrintName";
@@ -66,9 +55,9 @@ IMainService serviceM)
                 try
                 {
                     int id = Convert.ToInt32(comboBoxPrint.SelectedValue);
-                    PrintViewModel product = serviceP.GetElement(id);
+                    PrintViewModel product = APICustomer.GetRequest<PrintViewModel>("api/Print/Get/" + id);
                     int count = Convert.ToInt32(textBoxCount.Text);
-                    textBoxSum.Text = (count * product.Price).ToString();
+                    textBoxSum.Text = Convert.ToInt32((count * product.Price)).ToString();
                 }
                 catch (Exception ex)
                 {
@@ -107,7 +96,8 @@ IMainService serviceM)
             }
             try
             {
-                serviceM.CreateIndent(new IndentBindingModel
+                APICustomer.PostRequest<IndentBindingModel,
+                bool>("api/Main/CreateIndent", new IndentBindingModel
                 {
                     CustomerId = Convert.ToInt32(comboBoxCustomer.SelectedValue),
                     PrintId = Convert.ToInt32(comboBoxPrint.SelectedValue),
@@ -130,5 +120,6 @@ IMainService serviceM)
             DialogResult = DialogResult.Cancel;
             Close();
         }
+
     }
 }

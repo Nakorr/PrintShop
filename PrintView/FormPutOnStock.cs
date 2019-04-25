@@ -3,7 +3,6 @@ using PrintShopServiceDAL.Interfaces;
 using PrintShopServiceDAL.ViewModel;
 using System;
 using System.Windows.Forms;
-using Unity;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,24 +15,15 @@ namespace PrintView
 {
     public partial class FormPutOnStock : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-        private readonly IStockService serviceS;
-        private readonly IIngredientService serviceC;
-        private readonly IMainService serviceM;
-        public FormPutOnStock(IStockService serviceS, IIngredientService serviceC,
-       IMainService serviceM)
+        public FormPutOnStock()
         {
             InitializeComponent();
-            this.serviceS = serviceS;
-            this.serviceC = serviceC;
-            this.serviceM = serviceM;
         }
         private void FormPutOnStock_Load(object sender, EventArgs e)
         {
             try
             {
-                List<IngredientViewModel> listC = serviceC.GetList();
+                List<IngredientViewModel> listC = APICustomer.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
                 if (listC != null)
                 {
                     comboBoxIngredient.DisplayMember = "IngredientName";
@@ -41,7 +31,7 @@ namespace PrintView
                     comboBoxIngredient.DataSource = listC;
                     comboBoxIngredient.SelectedItem = null;
                 }
-                List<StockViewModel> listS = serviceS.GetList();
+                List<StockViewModel> listS = APICustomer.GetRequest<List<StockViewModel>>("api/Stock/GetList");
                 if (listS != null)
                 {
                     comboBoxStock.DisplayMember = "StockName";
@@ -78,7 +68,7 @@ namespace PrintView
             }
             try
             {
-                serviceM.PutIngredientOnStock(new StockIngredientBindingModel
+                APICustomer.PostRequest<StockIngredientBindingModel, bool>("api/Main/PutIngredientOnStock", new StockIngredientBindingModel
                 {
                     IngredientId = Convert.ToInt32(comboBoxIngredient.SelectedValue),
                     StockId = Convert.ToInt32(comboBoxStock.SelectedValue),

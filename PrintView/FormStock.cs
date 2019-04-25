@@ -3,7 +3,6 @@ using PrintShopServiceDAL.Interfaces;
 using PrintShopServiceDAL.ViewModel;
 using System;
 using System.Windows.Forms;
-using Unity;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,15 +15,11 @@ namespace PrintView
 {
     public partial class FormStock : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
         public int Id { set { id = value; } }
-        private readonly IStockService service;
         private int? id;
-        public FormStock(IStockService service)
+        public FormStock()
         {
             InitializeComponent();
-            this.service = service;
         }
         private void FormStock_Load(object sender, EventArgs e)
         {
@@ -32,16 +27,16 @@ namespace PrintView
             {
                 try
                 {
-                    StockViewModel view = service.GetElement(id.Value);
+                    StockViewModel view = APICustomer.GetRequest<StockViewModel>("api/Stock/Get/" + id.Value);
                     if (view != null)
                     {
-                     textBoxName.Text = view.StockName;
+                        textBoxName.Text = view.StockName;
                         dataGridView.DataSource = view.StockIngredients;
                         dataGridView.Columns[0].Visible = false;
                         dataGridView.Columns[1].Visible = false;
                         dataGridView.Columns[2].Visible = false;
                         dataGridView.Columns[3].AutoSizeMode =
-                       DataGridViewAutoSizeColumnMode.Fill;
+                        DataGridViewAutoSizeColumnMode.Fill;
                     }
                 }
                 catch (Exception ex)
@@ -63,7 +58,8 @@ namespace PrintView
             {
                 if (id.HasValue)
                 {
-                    service.UpdElement(new StockBindingModel
+                    APICustomer.PostRequest<StockBindingModel,
+                    bool>("api/Stock/UpdElement", new StockBindingModel
                     {
                         Id = id.Value,
                         StockName = textBoxName.Text
@@ -71,7 +67,8 @@ namespace PrintView
                 }
                 else
                 {
-                    service.AddElement(new StockBindingModel
+                    APICustomer.PostRequest<StockBindingModel,
+                    bool>("api/Stock/AddElement", new StockBindingModel
                     {
                         StockName = textBoxName.Text
                     });
