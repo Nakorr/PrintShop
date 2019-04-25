@@ -13,5 +13,6 @@ namespace PrintShopModel
     {
         public int Id { get; set; }
         public string StockName { get; set; }
+        public virtual List<StockIngredient> StockIngredients { get; set; }
     }
 }

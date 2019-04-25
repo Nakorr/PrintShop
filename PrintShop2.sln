@@ -10,6 +10,15 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintShopServiceImplement", "PrintShopServiceImplement\PrintShopServiceImplement.csproj", "{0C6723EA-1F18-4473-BE8B-081E4DD9383A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintView", "PrintView\PrintView.csproj", "{458C803B-4F4F-4A36-AD0A-936A5404E693}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E2C13992-722E-46E1-BACE-F6FA41FA497D} = {E2C13992-722E-46E1-BACE-F6FA41FA497D}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintShopServiceImplementDataBase", "PrintShopServiceImplementDataBase\PrintShopServiceImplementDataBase.csproj", "{E2C13992-722E-46E1-BACE-F6FA41FA497D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E29AD7AA-E804-4F28-820F-5F727D9757DE} = {E29AD7AA-E804-4F28-820F-5F727D9757DE}
+		{EAD4BAD8-2062-4544-A301-5ABB323F88BC} = {EAD4BAD8-2062-4544-A301-5ABB323F88BC}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +42,10 @@ Global
 		{458C803B-4F4F-4A36-AD0A-936A5404E693}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{458C803B-4F4F-4A36-AD0A-936A5404E693}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{458C803B-4F4F-4A36-AD0A-936A5404E693}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2C13992-722E-46E1-BACE-F6FA41FA497D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2C13992-722E-46E1-BACE-F6FA41FA497D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2C13992-722E-46E1-BACE-F6FA41FA497D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2C13992-722E-46E1-BACE-F6FA41FA497D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

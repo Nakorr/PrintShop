@@ -12,5 +12,7 @@ namespace PrintShopModel
         public int StockId { get; set; }
         public int IngredientId { get; set; }
         public int Count { get; set; }
+        public virtual Stock Stock { get; set; }
+        public virtual Ingredient Ingredient { get; set; }
     }
 }

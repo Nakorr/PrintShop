@@ -11,5 +11,7 @@ namespace PrintShopModel
         public int Id { get; set; }
         public string PrintName { get; set; }
         public decimal Price { get; set; }
+        public virtual List<PrintIngredient> PrintIngredients { get; set; }
+        public virtual List<Indent> Indents { get; set; }
     }
 }
