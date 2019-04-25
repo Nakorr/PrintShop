@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using PrintShopModel;
 using PrintShopServiceDAL.BindingModel;
 using PrintShopServiceDAL.Interfaces;
-using PrintShopServiceDAL.ViewModel;
+using PrintShopServiceDAL.ViewModel;
+
 
 namespace PrintShopServiceImplement.Implementations
 {

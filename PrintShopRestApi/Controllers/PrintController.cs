@@ -9,10 +9,10 @@ using System.Web.Http;
 
 namespace PrintShopRestApi.Controllers
 {
-    public class PizzaController : ApiController
+    public class PrintController : ApiController
     {
         private readonly IPrintService _service;
-        public PizzaController(IPrintService service)
+        public PrintController(IPrintService service)
         {
             _service = service;
         }

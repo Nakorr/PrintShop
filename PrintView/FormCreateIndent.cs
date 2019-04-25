@@ -97,7 +97,7 @@ namespace PrintView
             try
             {
                 APICustomer.PostRequest<IndentBindingModel,
-                bool>("api/Main/AddElement", new IndentBindingModel
+                bool>("api/Main/CreateIndent", new IndentBindingModel
                 {
                     CustomerId = Convert.ToInt32(comboBoxCustomer.SelectedValue),
                     PrintId = Convert.ToInt32(comboBoxPrint.SelectedValue),

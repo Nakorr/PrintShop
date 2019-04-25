@@ -8,7 +8,8 @@ using PrintShopServiceDAL.BindingModel;
 using PrintShopServiceDAL.Interfaces;
 using PrintShopServiceDAL.ViewModel;
 using System.Data.Entity;
-using System.Data.Entity.SqlServer;
+using System.Data.Entity.SqlServer;
+
 
 namespace PrintShopServiceImplementDataBase.Implementations
 {
