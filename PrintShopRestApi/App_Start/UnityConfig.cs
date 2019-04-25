@@ -1,10 +1,10 @@
-using System;
-using Unity;
-using Unity.Lifetime;
-using System.Data.Entity;
 using PrintShopServiceDAL.Interfaces;
 using PrintShopServiceImplementDataBase;
 using PrintShopServiceImplementDataBase.Implementations;
+using System;
+using System.Data.Entity;
+using Unity;
+using Unity.Lifetime;
 
 namespace PrintShopRestApi
 {
@@ -14,18 +14,18 @@ namespace PrintShopRestApi
     public static class UnityConfig
     {
         #region Unity Container
-        private static Lazy<IUnityContainer> Ñontainer =
-        new Lazy<IUnityContainer>(() =>
-        {
-            var Ñontainer = new UnityContainer();
-            RegisterTypes(Ñontainer);
-            return Ñontainer;
-        });
+        private static Lazy<IUnityContainer> container =
+          new Lazy<IUnityContainer>(() =>
+          {
+              var container = new UnityContainer();
+              RegisterTypes(container);
+              return container;
+          });
 
         /// <summary>
         /// Configured Unity Container.
         /// </summary>
-        public static IUnityContainer Container => Ñontainer.Value;
+        public static IUnityContainer Container => container.Value;
         #endregion
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace PrintShopRestApi
         /// allows resolving a concrete type even if it was not previously
         /// registered.
         /// </remarks>
-        public static void RegisterTypes(IUnityContainer Ñontainer)
+        public static void RegisterTypes(IUnityContainer container)
         {
             // NOTE: To load from web.config uncomment the line below.
             // Make sure to add a Unity.Configuration to the using statements.
@@ -46,19 +46,19 @@ namespace PrintShopRestApi
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
-            Container.RegisterType<DbContext, PrintShopDbContext>(new
+            container.RegisterType<DbContext, PrintShopDbContext>(new
+                       HierarchicalLifetimeManager());
+            container.RegisterType<ICustomerService, CustomerServiceDB>(new
            HierarchicalLifetimeManager());
-            Container.RegisterType<ICustomerService, CustomerServiceDB>(new
+            container.RegisterType<IIngredientService, IngredientServiceDB>(new
            HierarchicalLifetimeManager());
-            Container.RegisterType<IIngredientService, IngredientServiceDB>(new
+            container.RegisterType<IPrintService, PrintServiceDB>(new
            HierarchicalLifetimeManager());
-            Container.RegisterType<IPrintService, PrintServiceDB>(new
+            container.RegisterType<IMainService, MainServiceDB>(new
            HierarchicalLifetimeManager());
-            Container.RegisterType<IMainService, MainServiceDB>(new
+            container.RegisterType<IStockService, StockServiceDB>(new
            HierarchicalLifetimeManager());
-            Container.RegisterType<IStockService, StockServiceDB>(new
-           HierarchicalLifetimeManager());
-            Container.RegisterType<IReportService, ReportServiceDB>(new
+            container.RegisterType<IReportService, ReportServiceDB>(new
            HierarchicalLifetimeManager());
         }
     }
