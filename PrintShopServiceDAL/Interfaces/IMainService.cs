@@ -11,6 +11,7 @@ namespace PrintShopServiceDAL.Interfaces
     public interface IMainService
     {
         List<IndentViewModel> GetList();
+        List<IndentViewModel> GetFreeOrders();
         void CreateIndent(IndentBindingModel model);
         void TakeIndentInWork(IndentBindingModel model);
         void FinishIndent(IndentBindingModel model);

@@ -7,6 +7,7 @@ namespace PrintShopModel
     public class Indent
     {
         public int Id { get; set; }
+        public int? PerformerId { get; set; }
         public int CustomerId { get; set; }
         public int PrintId { get; set; }
         public int Count { get; set; }
@@ -16,5 +17,6 @@ namespace PrintShopModel
         public DateTime? DateImplement { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Print Print { get; set; }
+        public virtual Performer Performer { get; set; }
     }
 }

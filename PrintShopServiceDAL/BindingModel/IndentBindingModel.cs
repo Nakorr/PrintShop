@@ -10,6 +10,7 @@ namespace PrintShopServiceDAL.BindingModel
         public int CustomerId { get; set; }
         public int PrintId { get; set; }
         public int Count { get; set; }
+        public int? PerformerId { get; set; }
         public decimal Sum { get; set; }
     }
 }

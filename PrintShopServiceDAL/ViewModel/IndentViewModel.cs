@@ -12,6 +12,8 @@ namespace PrintShopServiceDAL.ViewModel
         public int PrintId { get; set; }
         public string PrintName { get; set; }
         public int Count { get; set; }
+        public int? PerformerId { get; set; }
+        public string PerformerName { get; set; }
         public decimal Sum { get; set; }
         public string Status { get; set; }
         public string DateCreate { get; set; }
