@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.Entity;using PrintShopModel;
+using System.Data.Entity;
+using PrintShopModel;
 
 namespace PrintShopServiceImplementDataBase
 {
