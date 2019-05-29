@@ -25,5 +25,6 @@ namespace PrintShopServiceImplementDataBase
         public virtual DbSet<PrintIngredient> PrintIngredients { get; set; }
         public virtual DbSet<Stock> Stocks { get; set; }
         public virtual DbSet<StockIngredient> StockIngredients { get; set; }
+        public virtual DbSet<Implementer> Implementers { get; set; }
     }
 }

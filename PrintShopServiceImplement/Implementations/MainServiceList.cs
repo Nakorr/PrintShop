@@ -154,5 +154,17 @@ namespace PrintShopServiceImplement.Implementations
                 });
             }
         }
+        public List<IndentViewModel> GetFreeIndents()
+        {
+            List<IndentViewModel> result = source.Indents
+            .Where(x => x.Status == IndentStatus.Принят || x.Status ==
+           IndentStatus.НедостаточноРесурсов)
+            .Select(rec => new IndentViewModel
+            {
+                Id = rec.Id
+            })
+            .ToList();
+            return result;
+        }
     }
 }
