@@ -67,6 +67,11 @@ namespace PrintView
             var form = new FormStocks();
             form.ShowDialog();
         }
+        private void сотрудникиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new FormImplementers();
+            form.ShowDialog();
+        }
         private void buttonCreateIndent_Click(object sender, EventArgs e)
         {
             var form = new FormCreateIndent();
