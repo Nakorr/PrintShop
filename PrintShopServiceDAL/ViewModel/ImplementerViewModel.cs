@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
 namespace PrintShopServiceDAL.ViewModel
 {
-    public class CustomerViewModel
+   public class ImplementerViewModel
     {
         public int Id { get; set; }
-        public string CustomerFIO { get; set; }
-        public string Mail { get; set; }
-        public List<MessageInfoViewModel> Messages { get; set; }
+        public string ImplementerFIO { get; set; }
     }
 }

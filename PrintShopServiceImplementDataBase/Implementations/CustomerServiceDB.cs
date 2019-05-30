@@ -24,7 +24,8 @@ namespace PrintShopServiceImplementDataBase.Implementations
            CustomerViewModel
             {
                 Id = rec.Id,
-                CustomerFIO = rec.CustomerFIO
+                CustomerFIO = rec.CustomerFIO,
+                Mail = rec.Mail
             })
             .ToList();
             return result;
@@ -37,7 +38,18 @@ namespace PrintShopServiceImplementDataBase.Implementations
                 return new CustomerViewModel
                 {
                     Id = element.Id,
-                    CustomerFIO = element.CustomerFIO
+                    CustomerFIO = element.CustomerFIO,
+                    Mail = element.Mail,
+                    Messages = context.MessageInfos
+                    .Where(recM => recM.CustomerId == element.Id)
+                    .Select(recM => new MessageInfoViewModel
+                    {
+                        MessageId = recM.MessageId,
+                        DateDelivery = recM.DateDelivery,
+                        Subject = recM.Subject,
+                        Body = recM.Body
+                    })
+                .ToList()
                 };
                 
             }
@@ -53,7 +65,8 @@ namespace PrintShopServiceImplementDataBase.Implementations
             }
             context.Customers.Add(new Customer
             {
-                CustomerFIO = model.CustomerFIO
+                CustomerFIO = model.CustomerFIO,
+                Mail = model.Mail
             });
             context.SaveChanges();
         }
@@ -71,6 +84,7 @@ namespace PrintShopServiceImplementDataBase.Implementations
                 throw new Exception("Элемент не найден");
             }
             element.CustomerFIO = model.CustomerFIO;
+            element.Mail = model.Mail;
             context.SaveChanges();
         }
         public void DelElement(int id)

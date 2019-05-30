@@ -1,5 +1,7 @@
 ﻿using PrintShopServiceDAL.BindingModel;
+using PrintShopServiceDAL.ViewModel;
 using PrintShopServiceDAL.Interfaces;
+using PrintShopRestApi.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +14,13 @@ namespace PrintShopRestApi.Controllers
     public class MainController : ApiController
     {
         private readonly IMainService _service;
-        public MainController(IMainService service)
+        private readonly IImplementerService _serviceImplementer;
+        public MainController(IMainService service, IImplementerService
+       serviceImplementer)
         {
             _service = service;
-        }
-
+            _serviceImplementer = serviceImplementer;
+        }
         [HttpGet]
         public IHttpActionResult GetList()
         {
@@ -26,18 +30,6 @@ namespace PrintShopRestApi.Controllers
                 InternalServerError(new Exception("Нет данных"));
             }
             return Ok(list);
-        }
-
-        [HttpPost]
-        public void CreateIndent(IndentBindingModel model)
-        {
-            _service.CreateIndent(model);
-        }
-
-        [HttpPost]
-        public void TakeIndentInWork(IndentBindingModel model)
-        {
-            _service.TakeIndentInWork(model);
         }
 
         [HttpPost]
@@ -56,6 +48,21 @@ namespace PrintShopRestApi.Controllers
         public void PutIngredientOnStock(StockIngredientBindingModel model)
         {
             _service.PutIngredientOnStock(model);
+        }
+
+        [HttpPost]
+        public void StartWork()
+        {
+            List<IndentViewModel> orders = _service.GetFreeIndents();
+            foreach (var order in orders)
+            {
+                ImplementerViewModel impl = _serviceImplementer.GetFreeWorker();
+                if (impl == null)
+                {
+                    throw new Exception("Нет сотрудников");
+                }
+                new WorkImplementer(_service, _serviceImplementer, impl.Id, order.Id);
+            }
         }
     }
 }

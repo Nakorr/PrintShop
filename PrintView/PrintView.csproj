@@ -128,11 +128,29 @@
     <Compile Include="FormCustomers.Designer.cs">
       <DependentUpon>FormCustomers.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormImplementer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormImplementer.Designer.cs">
+      <DependentUpon>FormImplementer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormImplementers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormImplementers.Designer.cs">
+      <DependentUpon>FormImplementers.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormIngredient.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormIngredient.Designer.cs">
       <DependentUpon>FormIngredient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMails.Designer.cs">
+      <DependentUpon>FormMails.cs</DependentUpon>
     </Compile>
     <Compile Include="FormPrintIngredient.cs">
       <SubType>Form</SubType>
@@ -194,6 +212,7 @@
     <Compile Include="FormStocksLoad.Designer.cs">
       <DependentUpon>FormStocksLoad.cs</DependentUpon>
     </Compile>
+    <Compile Include="MailCustomer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
@@ -206,8 +225,14 @@
     <EmbeddedResource Include="FormCustomers.resx">
       <DependentUpon>FormCustomers.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormImplementer.resx">
+      <DependentUpon>FormImplementer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormIngredient.resx">
       <DependentUpon>FormIngredient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMails.resx">
+      <DependentUpon>FormMails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrintIngredient.resx">
       <DependentUpon>FormPrintIngredient.cs</DependentUpon>

@@ -62,11 +62,22 @@ namespace PrintView
             var form = new FormPrints();
             form.ShowDialog();
         }
+        private void письмаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new FormMails();
+            form.ShowDialog();
+            
+        }
         private void складыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = new FormStocks();
             form.ShowDialog();
         }
+       /* private void сотрудникиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new FormImplementers();
+            form.ShowDialog();
+        }*/
         private void buttonCreateIndent_Click(object sender, EventArgs e)
         {
             var form = new FormCreateIndent();
@@ -171,6 +182,20 @@ namespace PrintView
         {
             var form = new FormCustomerIndents();
             form.ShowDialog();
+        }
+        private void запускРаботToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                APICustomer.PostRequest<int?, bool>("api/Main/StartWork", null);
+                MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+               MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+            }
         }
     }
 }
