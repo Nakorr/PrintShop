@@ -64,6 +64,7 @@
     <Compile Include="BindingModel\ImplementerBindingModel.cs" />
     <Compile Include="BindingModel\IndentBindingModel.cs" />
     <Compile Include="BindingModel\IngredientBindingModel.cs" />
+    <Compile Include="BindingModel\MessageInfoBindingModel.cs" />
     <Compile Include="BindingModel\PrintShopIngredientBindingModel.cs" />
     <Compile Include="BindingModel\PrintShopBindingModel.cs" />
     <Compile Include="BindingModel\ReportBindingModel.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Interfaces\IImplementerService.cs" />
     <Compile Include="Interfaces\IIngredientService.cs" />
     <Compile Include="Interfaces\IMainService.cs" />
+    <Compile Include="Interfaces\IMessageInfoService.cs" />
     <Compile Include="Interfaces\IPrintService.cs" />
     <Compile Include="Interfaces\IReportService.cs" />
     <Compile Include="Interfaces\IStockService.cs" />
@@ -82,6 +84,7 @@
     <Compile Include="ViewModel\ImplementerViewModel.cs" />
     <Compile Include="ViewModel\IndentViewModel.cs" />
     <Compile Include="ViewModel\IngredientViewModel.cs" />
+    <Compile Include="ViewModel\MessageInfoViewModel.cs" />
     <Compile Include="ViewModel\PrintViewModel.cs" />
     <Compile Include="ViewModel\PrintIngredientViewModel.cs" />
     <Compile Include="ViewModel\StockIngredientViewModel.cs" />
