@@ -27,23 +27,25 @@ namespace PrintShopServiceImplementDataBase.Implementations
                 Id = rec.Id,
                 CustomerId = rec.CustomerId,
                 PrintId = rec.PrintId,
+                ImplementerId = rec.ImplementerId,
                 DateCreate = SqlFunctions.DateName("dd", rec.DateCreate) + " " +
-            SqlFunctions.DateName("mm", rec.DateCreate) + " " +
-            SqlFunctions.DateName("yyyy", rec.DateCreate),
-                DateImplement = rec.DateImplement == null ? "" :
-            SqlFunctions.DateName("dd",
-           rec.DateImplement.Value) + " " +
-            SqlFunctions.DateName("mm",
-           rec.DateImplement.Value) + " " +
-            SqlFunctions.DateName("yyyy",
-           rec.DateImplement.Value),
+                 SqlFunctions.DateName("mm", rec.DateCreate) + " " +
+                 SqlFunctions.DateName("yyyy", rec.DateCreate),
+                                DateImplement = rec.DateImplement == null ? "" :
+                 SqlFunctions.DateName("dd",
+                rec.DateImplement.Value) + " " +
+                 SqlFunctions.DateName("mm",
+                rec.DateImplement.Value) + " " +
+                 SqlFunctions.DateName("yyyy",
+                rec.DateImplement.Value),
                 Status = rec.Status.ToString(),
                 Count = rec.Count,
                 Sum = rec.Sum,
                 CustomerFIO = rec.Customer.CustomerFIO,
-                PrintName = rec.Print.PrintName
+                PrintName = rec.Print.PrintName,
+                ImplementerName = rec.Implementer.ImplementerFIO
             })
-            .ToList();
+ .ToList();
             return result;
         }
         public void CreateIndent(IndentBindingModel model)
@@ -107,6 +109,7 @@ namespace PrintShopServiceImplementDataBase.Implementations
                            PrintIngredient.Ingredient.IngredientName + " требуется " + PrintIngredient.Count + ", не хватает " + countOnStocks);
                          }
                     }
+                    element.ImplementerId = model.ImplementerId;
                     element.DateImplement = DateTime.Now;
                     element.Status = IndentStatus.Выполняется;
                     context.SaveChanges();
@@ -166,6 +169,18 @@ namespace PrintShopServiceImplementDataBase.Implementations
                 });
             }
             context.SaveChanges();
+        }
+        public List<IndentViewModel> GetFreeIndents()
+        {
+            List<IndentViewModel> result = context.Indents
+            .Where(x => x.Status == IndentStatus.Принят || x.Status ==
+           IndentStatus.НедостаточноРесурсов)
+            .Select(rec => new IndentViewModel
+            {
+                Id = rec.Id
+            })
+            .ToList();
+            return result;
         }
     }
 }

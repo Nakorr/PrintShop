@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PrintShopServiceDAL.BindingModel;
-using PrintShopServiceDAL.ViewModel;
+using PrintShopServiceDAL.ViewModel;
+
 
 namespace PrintShopServiceDAL.Interfaces
 {

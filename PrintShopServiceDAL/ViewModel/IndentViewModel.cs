@@ -11,6 +11,8 @@ namespace PrintShopServiceDAL.ViewModel
         public string CustomerFIO { get; set; }
         public int PrintId { get; set; }
         public string PrintName { get; set; }
+        public int? ImplementerId { get; set; }
+        public string ImplementerName { get; set; }
         public int Count { get; set; }
         public decimal Sum { get; set; }
         public string Status { get; set; }

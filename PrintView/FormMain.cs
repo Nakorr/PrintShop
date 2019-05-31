@@ -35,8 +35,6 @@ namespace PrintView
                     dataGridView.Columns[1].Visible = false;
                     dataGridView.Columns[3].Visible = false;
                     dataGridView.Columns[5].Visible = false;
-                    dataGridView.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-                    dataGridView.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
                     dataGridView.Columns[1].AutoSizeMode =
                     DataGridViewAutoSizeColumnMode.Fill;
                 }
@@ -65,6 +63,11 @@ namespace PrintView
         private void складыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = new FormStocks();
+            form.ShowDialog();
+        }
+        private void сотрудникиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new FormImplementers();
             form.ShowDialog();
         }
         private void buttonCreateIndent_Click(object sender, EventArgs e)
@@ -171,6 +174,20 @@ namespace PrintView
         {
             var form = new FormCustomerIndents();
             form.ShowDialog();
+        }
+        private void запускРаботToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                APICustomer.PostRequest<int?, bool>("api/Main/StartWork", null);
+                MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+               MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+            }
         }
     }
 }
