@@ -20,7 +20,8 @@ namespace PrintShopRestApi.Controllers
         {
             _service = service;
             _serviceImplementer = serviceImplementer;
-        }
+        }
+
         [HttpGet]
         public IHttpActionResult GetList()
         {
@@ -36,6 +37,12 @@ namespace PrintShopRestApi.Controllers
         public void FinishIndent(IndentBindingModel model)
         {
             _service.FinishIndent(model);
+        }
+
+        [HttpPost]
+        public void CreateIndent(IndentBindingModel model)
+        {
+            _service.CreateIndent(model);
         }
 
         [HttpPost]
@@ -62,7 +69,8 @@ namespace PrintShopRestApi.Controllers
                     throw new Exception("Нет сотрудников");
                 }
                 new WorkImplementer(_service, _serviceImplementer, impl.Id, order.Id);
-            }
+            }
+
         }
     }
 }

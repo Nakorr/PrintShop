@@ -27,6 +27,7 @@ namespace PrintShopServiceImplementDataBase.Implementations
                 Id = rec.Id,
                 CustomerId = rec.CustomerId,
                 PrintId = rec.PrintId,
+                ImplementerId = rec.Implementer.Id,
                 DateCreate = SqlFunctions.DateName("dd", rec.DateCreate) + " " +
             SqlFunctions.DateName("mm", rec.DateCreate) + " " +
             SqlFunctions.DateName("yyyy", rec.DateCreate),
@@ -41,7 +42,8 @@ namespace PrintShopServiceImplementDataBase.Implementations
                 Count = rec.Count,
                 Sum = rec.Sum,
                 CustomerFIO = rec.Customer.CustomerFIO,
-                PrintName = rec.Print.PrintName
+                ImplementerName = rec.Implementer.ImplementerFIO
+
             })
             .ToList();
             return result;
@@ -107,6 +109,7 @@ namespace PrintShopServiceImplementDataBase.Implementations
                            PrintIngredient.Ingredient.IngredientName + " требуется " + PrintIngredient.Count + ", не хватает " + countOnStocks);
                          }
                     }
+                    element.ImplementerId = model.ImplementerId;
                     element.DateImplement = DateTime.Now;
                     element.Status = IndentStatus.Выполняется;
                     context.SaveChanges();
