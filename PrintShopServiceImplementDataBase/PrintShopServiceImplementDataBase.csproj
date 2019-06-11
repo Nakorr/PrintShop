@@ -93,6 +93,10 @@
     <Compile Include="Migrations\201905291409494_ThirdMigration.Designer.cs">
       <DependentUpon>201905291409494_ThirdMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906111135548_Forth.cs" />
+    <Compile Include="Migrations\201906111135548_Forth.Designer.cs">
+      <DependentUpon>201906111135548_Forth.cs</DependentUpon>
+    </Compile>
     <Compile Include="PrintShopDbContext.cs" />
     <Compile Include="Implementations\CustomerServiceDB.cs" />
     <Compile Include="Implementations\IngredientServiceDB.cs" />
@@ -113,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905291409494_ThirdMigration.resx">
       <DependentUpon>201905291409494_ThirdMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906111135548_Forth.resx">
+      <DependentUpon>201906111135548_Forth.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
