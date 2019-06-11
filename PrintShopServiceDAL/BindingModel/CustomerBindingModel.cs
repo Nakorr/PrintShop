@@ -9,5 +9,6 @@ namespace PrintShopServiceDAL.BindingModel
     {
         public int Id { get; set; }
         public string CustomerFIO { get; set; }
+        public string Mail { get; set; }
     }
 }

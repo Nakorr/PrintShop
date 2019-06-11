@@ -22,6 +22,7 @@ namespace PrintView
         {
             
             APICustomer.Connect();
+            MailClient.Connect();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormMain());

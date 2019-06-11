@@ -9,5 +9,7 @@ namespace PrintShopServiceDAL.ViewModel
     {
         public int Id { get; set; }
         public string CustomerFIO { get; set; }
+        public string Mail { get; set; }
+        public List<MessageInfoViewModel> Messages { get; set; }
     }
 }
