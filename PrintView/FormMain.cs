@@ -55,6 +55,11 @@ namespace PrintView
             var form = new FormIngredients();
             form.ShowDialog();
         }
+        private void почтаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new FormMails();
+            form.ShowDialog();
+        }
         private void изделияToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = new FormPrints();

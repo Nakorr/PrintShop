@@ -10,7 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
+
 
 namespace PrintView
 {
@@ -38,7 +39,8 @@ namespace PrintView
                     dataGridView1.Columns[0].Visible = false;
                     dataGridView1.Columns[1].Visible = false;
                     dataGridView1.Columns[4].AutoSizeMode =
-                    DataGridViewAutoSizeColumnMode.Fill;
+                    DataGridViewAutoSizeColumnMode.Fill;
+
                 }
                 catch (Exception ex)
                 {
@@ -47,7 +49,8 @@ namespace PrintView
                         ex = ex.InnerException;
                     }
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                    MessageBoxIcon.Error);
+
                 }
             }
         }
@@ -63,8 +66,7 @@ namespace PrintView
             string mail = textBoxMail.Text;
             if (!string.IsNullOrEmpty(mail))
             {
-                if (!Regex.IsMatch(mail, @"^(?("")(""[^""]+?""@)|(([0-9a-z]((\.(?!\.))|[-
-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9az][-\w]*[0-9a-z]*\.)+[a-z0-9]{2,17}))$"))
+                if (!Regex.IsMatch(mail, @"(\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)"))
                 {
                     MessageBox.Show("Неверный формат для электронной почты", "Ошибка",
                    MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -74,7 +76,7 @@ namespace PrintView
             if (id.HasValue)
             {
                 APICustomer.PostRequest<CustomerBindingModel,
-               bool>("api/Ingredient/UpdElement", new CustomerBindingModel
+               bool>("api/Customer/UpdElement", new CustomerBindingModel
                {
                    Id = id.Value,
                    CustomerFIO = fio,
@@ -84,7 +86,7 @@ namespace PrintView
             else
             {
                 APICustomer.PostRequest<CustomerBindingModel,
-               bool>("api/Ingredient/AddElement", new CustomerBindingModel
+               bool>("api/Customer/AddElement", new CustomerBindingModel
                {
                    CustomerFIO = fio,
                    Mail = mail
@@ -94,9 +96,11 @@ namespace PrintView
            MessageBoxButtons.OK, MessageBoxIcon.Information);
             DialogResult = DialogResult.OK;
             Close();
-        }        private void buttonCancel_Click(object sender, EventArgs e)
+        }
+        private void buttonCancel_Click(object sender, EventArgs e)
         {
             Close();
-        }
+        }
+
     }
 }
