@@ -17,6 +17,7 @@ namespace PrintShopModel
         public DateTime? DateImplement { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Print Print { get; set; }
-        public virtual Implementer Implementer { get; set; }
+        public virtual Implementer Implementer { get; set; }
+
     }
 }

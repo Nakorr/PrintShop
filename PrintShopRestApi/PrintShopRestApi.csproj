@@ -113,6 +113,7 @@
     <Compile Include="Controllers\ImplementerController.cs" />
     <Compile Include="Controllers\IngredientController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\MessageInfoController.cs" />
     <Compile Include="Controllers\PrintController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\StockController.cs" />

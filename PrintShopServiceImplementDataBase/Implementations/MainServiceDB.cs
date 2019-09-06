@@ -8,7 +8,10 @@ using PrintShopServiceDAL.BindingModel;
 using PrintShopServiceDAL.Interfaces;
 using PrintShopServiceDAL.ViewModel;
 using System.Data.Entity;
+using System.Net;
+using System.Net.Mail;
 using System.Data.Entity.SqlServer;
+using System.Configuration;
 
 
 namespace PrintShopServiceImplementDataBase.Implementations
@@ -50,7 +53,7 @@ namespace PrintShopServiceImplementDataBase.Implementations
         }
         public void CreateIndent(IndentBindingModel model)
         {
-            context.Indents.Add(new Indent
+            var indent = new Indent
             {
                 CustomerId = model.CustomerId,
                 PrintId = model.PrintId,
@@ -58,34 +61,39 @@ namespace PrintShopServiceImplementDataBase.Implementations
                 Count = model.Count,
                 Sum = model.Sum,
                 Status = IndentStatus.Принят
-            });
+            };
+            context.Indents.Add(indent);
             context.SaveChanges();
-        }
+
+            var client = context.Customers.FirstOrDefault(x => x.Id == model.CustomerId);
+            SendEmail(client.Mail, "Оповещение по заказам", string.Format("Заказ №{0} от { 1} создан успешно", indent.Id, indent.DateCreate.ToShortDateString()));
+         }
+            
         public void TakeIndentInWork(IndentBindingModel model)
         {
             
         using (var transaction = context.Database.BeginTransaction())
             {
+                Indent element = context.Indents.FirstOrDefault(rec => rec.Id == model.Id);
                 try
                 {
-                    Indent element = context.Indents.FirstOrDefault(rec => rec.Id ==
-                   model.Id);
                     if (element == null)
                     {
                         throw new Exception("Элемент не найден");
                     }
-                    if (element.Status != IndentStatus.Принят)
+                    if (element.Status != IndentStatus.Принят && element.Status !=
+                    IndentStatus.НедостаточноРесурсов)
                     {
                         throw new Exception("Заказ не в статусе \"Принят\"");
                     }
-                    var PrintIngredients = context.PrintIngredients.Include(rec =>
+                    var productIngredients = context.PrintIngredients.Include(rec =>
                     rec.Ingredient).Where(rec => rec.PrintId == element.PrintId);
                     // списываем
-                    foreach (var PrintIngredient in PrintIngredients)
+                    foreach (var productIngredient in productIngredients)
                     {
-                        int countOnStocks = PrintIngredient.Count * element.Count;
+                        int countOnStocks = productIngredient.Count * element.Count;
                         var stockIngredients = context.StockIngredients.Where(rec =>
-                        rec.IngredientId == PrintIngredient.IngredientId);
+                        rec.IngredientId == productIngredient.IngredientId);
                         foreach (var stockIngredient in stockIngredients)
                         {
                             // компонентов на одном слкаде может не хватать
@@ -106,22 +114,28 @@ namespace PrintShopServiceImplementDataBase.Implementations
                         if (countOnStocks > 0)
                         {
                             throw new Exception("Не достаточно компонента " +
-                           PrintIngredient.Ingredient.IngredientName + " требуется " + PrintIngredient.Count + ", не хватает " + countOnStocks);
+                           productIngredient.Ingredient.IngredientName + " требуется " + productIngredient.Count + ", не хватает " + countOnStocks);
                          }
                     }
                     element.ImplementerId = model.ImplementerId;
                     element.DateImplement = DateTime.Now;
                     element.Status = IndentStatus.Выполняется;
                     context.SaveChanges();
+                    SendEmail(element.Customer.Mail, "Оповещение по заказам",
+                    string.Format("Заказ №{0} от {1} передеан в работу", element.Id,
+                    element.DateCreate.ToShortDateString()));
                     transaction.Commit();
-                }
+ }
                 catch (Exception)
                 {
                     transaction.Rollback();
+                    element.Status = IndentStatus.НедостаточноРесурсов;
+                    context.SaveChanges();
+                    transaction.Commit();
                     throw;
                 }
             }
-        }
+        }
         public void FinishIndent(IndentBindingModel model)
         {
             Indent element = context.Indents.FirstOrDefault(rec => rec.Id == model.Id);
@@ -135,8 +149,8 @@ namespace PrintShopServiceImplementDataBase.Implementations
                 throw new Exception("Заказ не в статусе \"Выполняется\"");
             }
             element.Status = IndentStatus.Готов;
-            context.SaveChanges();
-        }
+            context.SaveChanges(); SendEmail(element.Customer.Mail, "Оповещение по заказам", string.Format("Заказ №{ 0} от { 1} передан на оплату", element.Id, element.DateCreate.ToShortDateString()));
+ }
         public void PayIndent(IndentBindingModel model)
         {
             Indent element = context.Indents.FirstOrDefault(rec => rec.Id == model.Id);
@@ -150,8 +164,9 @@ namespace PrintShopServiceImplementDataBase.Implementations
             }
             element.Status = IndentStatus.Оплачен;
             context.SaveChanges();
-        }
-        public void PutIngredientOnStock(StockIngredientBindingModel model)
+            SendEmail(element.Customer.Mail, "Оповещение по заказам", string.Format("Заказ №{ 0} от { 1} оплачен успешно", element.Id, element.DateCreate.ToShortDateString()));
+ }
+    public void PutIngredientOnStock(StockIngredientBindingModel model)
         {
             StockIngredient element = context.StockIngredients.FirstOrDefault(rec =>
            rec.StockId == model.StockId && rec.IngredientId == model.IngredientId);
@@ -181,6 +196,38 @@ namespace PrintShopServiceImplementDataBase.Implementations
             })
             .ToList();
             return result;
+        }
+        private void SendEmail(string mailAddress, string subject, string text)
+        {
+            MailMessage objMailMessage = new MailMessage();
+            SmtpClient objSmtpClient = null;
+            try
+            {
+                objMailMessage.From = new
+               MailAddress(ConfigurationManager.AppSettings["MailLogin"]);
+                objMailMessage.To.Add(new MailAddress(mailAddress));
+                objMailMessage.Subject = subject;
+                objMailMessage.Body = text;
+                objMailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
+                objMailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+                objSmtpClient = new SmtpClient("smtp.gmail.com", 587);
+                objSmtpClient.UseDefaultCredentials = false;
+                objSmtpClient.EnableSsl = true;
+                objSmtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                objSmtpClient.Credentials = new
+               NetworkCredential(ConfigurationManager.AppSettings["MailLogin"],
+               ConfigurationManager.AppSettings["MailPassword"]);
+                objSmtpClient.Send(objMailMessage);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                objMailMessage = null;
+                objSmtpClient = null;
+            }
         }
     }
 }

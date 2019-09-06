@@ -10,7 +10,7 @@ namespace PrintShopServiceImplementDataBase
 {
    public class PrintShopDbContext : DbContext
     {
-        public PrintShopDbContext() : base("AbstractDatabase")
+        public PrintShopDbContext() : base("PrintShopDatabase1")
         {
             //настройки конфигурации для entity
             Configuration.ProxyCreationEnabled = false;
@@ -26,5 +26,6 @@ namespace PrintShopServiceImplementDataBase
         public virtual DbSet<Stock> Stocks { get; set; }
         public virtual DbSet<StockIngredient> StockIngredients { get; set; }
         public virtual DbSet<Implementer> Implementers { get; set; }
+        public virtual DbSet<MessageInfo> MessageInfos { get; set; }
     }
 }
