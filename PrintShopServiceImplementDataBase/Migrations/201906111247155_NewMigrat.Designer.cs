@@ -7,13 +7,13 @@ namespace PrintShopServiceImplementDataBase.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Forth : IMigrationMetadata
+    public sealed partial class NewMigrat : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Forth));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(NewMigrat));
         
         string IMigrationMetadata.Id
         {
-            get { return "201906111135548_Forth"; }
+            get { return "201906111247155_NewMigrat"; }
         }
         
         string IMigrationMetadata.Source

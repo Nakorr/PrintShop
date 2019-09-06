@@ -2,7 +2,7 @@ using System;
 
 using Unity;
 
-namespace PrintShopRestApi
+namespace PrintShopModel
 {
     /// <summary>
     /// Specifies the Unity configuration for the main container.

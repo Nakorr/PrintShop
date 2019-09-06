@@ -70,7 +70,9 @@ namespace PrintShopRestApi.Controllers
                 }
                 new WorkImplementer(_service, _serviceImplementer, impl.Id, order.Id);
             }
-
+            orders = _service.GetFreeIndents();
         }
+        [HttpGet]
+        public IHttpActionResult GetInfo() { ReflectionService service = new ReflectionService(); var list = service.GetInfoByAssembly(); if (list == null) { InternalServerError(new Exception("Нет данных")); } return Ok(list); }
     }
 }
